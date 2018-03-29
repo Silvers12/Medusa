@@ -1,7 +1,7 @@
 MEDUSA.config.init = function() {
     $('#config-components').tabs();
 
-    $('.viewIf').on('click', function() {
+    $(document.body).on('.viewIf', 'click', event => {
         if ($(this).prop('checked')) {
             $('.hide_if_' + $(this).attr('id')).css('display', 'none');
             $('.show_if_' + $(this).attr('id')).fadeIn('fast', 'linear');
@@ -11,7 +11,7 @@ MEDUSA.config.init = function() {
         }
     });
 
-    $('.datePresets').on('click', function() {
+    $(document.body).on('.datePresets', 'click', event => {
         let def = $('#date_presets').val();
         if ($(this).prop('checked') && def === '%x') {
             def = '%a, %b %d, %Y';
@@ -62,11 +62,11 @@ MEDUSA.config.init = function() {
         }
     });
 
-    $('#api_key').on('click', () => {
+    $(document.body).on('#api_key', 'click', event => {
         $('#api_key').select();
     });
 
-    $('#generate_new_apikey').on('click', () => {
+    $(document.body).on('#generate_new_apikey', 'click', event => {
         $.get('config/general/generate_api_key', data => {
             if (data.error !== undefined) {
                 alert(data.error); // eslint-disable-line no-alert
@@ -76,7 +76,7 @@ MEDUSA.config.init = function() {
         });
     });
 
-    $('#branchCheckout').on('click', () => {
+    $(document.body).on('#branchCheckout', 'click', event => {
         const url = 'home/branchCheckout?branch=' + $('#branchVersion').val();
         $.getJSON('home/getDBcompare', data => {
             if (data.status === 'success') {
@@ -97,7 +97,7 @@ MEDUSA.config.init = function() {
         });
     });
 
-    $('#branchForceUpdate').on('click', () => {
+    $(document.body).on('#branchForceUpdate', 'click', event => {
         $('#branchForceUpdate').prop('disabled', true);
         $('#git_reset_branches').prop('disabled', true);
         $.getJSON('home/branchForceUpdate', data => {
@@ -128,11 +128,11 @@ MEDUSA.config.init = function() {
     // GitHub Auth Types
     setupGithubAuthTypes();
 
-    $('input[name="git_auth_type"]').on('click', () => {
+    $(document.body).on('input[name="git_auth_type"]', 'click', event => {
         setupGithubAuthTypes();
     });
 
-    $('#git_token').on('click', () => {
+    $(document.body).on('#git_token', 'click', event => {
         $('#git_token').select();
     });
 
@@ -145,7 +145,7 @@ MEDUSA.config.init = function() {
             '<input class="btn" type="button" value="Continue to Github..."></a></p><br/>'
     });
 
-    $('#manage_tokens').on('click', () => {
+    $(document.body).on('#manage_tokens', 'click', event => {
         window.open(MEDUSA.config.anonRedirect + 'https://github.com/settings/tokens', '_blank');
     });
 };

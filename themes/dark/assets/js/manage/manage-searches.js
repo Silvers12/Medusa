@@ -62,7 +62,7 @@ MEDUSA.manage.manageSearches = function() {
     /**
      * Trigger the force refresh of all the exception types.
      */
-    $('.forceSceneExceptionRefresh').on('click', () => {
+    $(document.body).on('.forceSceneExceptionRefresh', 'click', event => {
         const status = $('#sceneExceptionStatus');
         // Start a spinner.
         updateSpinner(status, 'Retrieving scene exceptions...', true);

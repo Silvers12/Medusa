@@ -1,5 +1,5 @@
 MEDUSA.config.backupRestore = function() {
-    $('#Backup').on('click', () => {
+    $(document.body).on('#Backup', 'click', event => {
         $('#Backup').prop('disabled', true);
         $('#Backup-result').html(MEDUSA.config.loading);
         const backupDir = $('#backupDir').val();
@@ -10,7 +10,7 @@ MEDUSA.config.backupRestore = function() {
             $('#Backup').prop('disabled', false);
         });
     });
-    $('#Restore').on('click', () => {
+    $(document.body).on('#Restore', 'click', event => {
         $('#Restore').prop('disabled', true);
         $('#Restore-result').html(MEDUSA.config.loading);
         const backupFile = $('#backupFile').val();

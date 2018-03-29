@@ -90,7 +90,7 @@ MEDUSA.common.init = function() {
         }
     });
 
-    $('.scroll-wrapper.top').on('click', () => {
+    $(document.body).on('.scroll-wrapper.top', 'click', event => {
         scrollTo($('body'));
     });
 
@@ -135,7 +135,7 @@ MEDUSA.common.init = function() {
     }
 
     let revertBackgroundColor; // Used to revert back to original background-color after highlight
-    $('.triggerhighlight').on('mouseover', function() {
+    $(document.body).on('.triggerhighlight', 'mouseover', event => {
         revertBackgroundColor = rgb2hex($(this).parent().css('background-color')); // Fetch the original background-color to revert back to
         $(this).parent().find('.triggerhighlight').css('background-color', colorLuminance(revertBackgroundColor, -0.15)); // Setting highlight background-color
     }).on('mouseout', function() {
@@ -244,7 +244,7 @@ MEDUSA.common.init = function() {
     // @TODO Replace this with a real touchscreen check
     // hack alert: if we don't have a touchscreen, and we are already hovering the mouse, then click should link instead of toggle
     if ((navigator.maxTouchPoints || 0) < 2) {
-        $('.dropdown-toggle').on('click', function() {
+        $(document.body).on('.dropdown-toggle', 'click', event => {
             const $this = $(this);
             if ($this.attr('aria-expanded') === 'true') {
                 window.location.href = $('base').attr('href') + $this.attr('href');
@@ -297,7 +297,7 @@ MEDUSA.common.init = function() {
         }
     });
 
-    $('.enabler').on('click', function() {
+    $(document.body).on('.enabler', 'click', event => {
         if ($(this).prop('checked')) {
             $('#content_' + $(this).attr('id')).fadeIn('fast', 'linear');
         } else {

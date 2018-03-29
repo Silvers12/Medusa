@@ -34,27 +34,27 @@ function updateBlackWhiteList(showName) { // eslint-disable-line no-unused-vars
 }
 
 $(document).ready(() => {
-    $('#removeW').on('click', () => {
+    $(document.body).on('#removeW', 'click', event => {
         !$('#white option:selected').remove().appendTo('#pool');  // eslint-disable-line no-unused-expressions
     });
 
-    $('#addW').on('click', () => {
+    $(document.body).on('#addW', 'click', event => {
         !$('#pool option:selected').remove().appendTo('#white');  // eslint-disable-line no-unused-expressions
     });
 
-    $('#addB').on('click', () => {
+    $(document.body).on('#addB', 'click', event => {
         !$('#pool option:selected').remove().appendTo('#black');  // eslint-disable-line no-unused-expressions
     });
 
-    $('#removeP').on('click', () => {
+    $(document.body).on('#removeP', 'click', event => {
         !$('#pool option:selected').remove();  // eslint-disable-line no-unused-expressions
     });
 
-    $('#removeB').on('click', () => {
+    $(document.body).on('#removeB', 'click', event => {
         !$('#black option:selected').remove().appendTo('#pool');  // eslint-disable-line no-unused-expressions
     });
 
-    $('#addToWhite').on('click', () => {
+    $(document.body).on('#addToWhite', 'click', event => {
         const group = $('#addToPoolText').val();
         if (group !== '') {
             const option = $('<option>');
@@ -65,7 +65,7 @@ $(document).ready(() => {
         }
     });
 
-    $('#addToBlack').on('click', () => {
+    $(document.body).on('#addToBlack', 'click', event => {
         const group = $('#addToPoolText').val();
         if (group !== '') {
             const option = $('<option>');

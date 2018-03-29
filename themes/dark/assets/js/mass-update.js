@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    $('.submitMassEdit').on('click', () => {
+    $(document.body).on('.submitMassEdit', 'click', event => {
         const editArr = [];
 
         $('.editCheck').each(function() {
@@ -22,7 +22,7 @@ $(document).ready(() => {
         submitForm.submit();
     });
 
-    $('.submitMassUpdate').on('click', function() {
+    $(document.body).on('.submitMassUpdate', 'click', event => {
         const updateArr = [];
         const refreshArr = [];
         const renameArr = [];

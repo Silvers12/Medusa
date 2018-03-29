@@ -283,7 +283,7 @@ MEDUSA.config.postProcessing = function() { // eslint-disable-line max-lines
         fillAnimeExamples();
     }
 
-    $('#unpack').on('change', function() {
+    $(document.body).on('#unpack', 'change', event => {
         if (this.checked) {
             isRarSupported();
         } else {
@@ -294,35 +294,35 @@ MEDUSA.config.postProcessing = function() { // eslint-disable-line max-lines
     // @TODO all of these on change funcitons should be able to be rolled into a generic jQuery function or maybe we could
     //       move all of the setup functions into these handlers?
 
-    $('#name_presets').on('change', () => {
+    $(document.body).on('#name_presets', 'change', event => {
         setupNaming();
     });
 
-    $('#name_abd_presets').on('change', () => {
+    $(document.body).on('#name_abd_presets', 'change', event => {
         setupAbdNaming();
     });
 
-    $('#naming_custom_abd').on('change', () => {
+    $(document.body).on('#naming_custom_abd', 'change', event => {
         setupAbdNaming();
     });
 
-    $('#name_sports_presets').on('change', () => {
+    $(document.body).on('#name_sports_presets', 'change', event => {
         setupSportsNaming();
     });
 
-    $('#naming_custom_sports').on('change', () => {
+    $(document.body).on('#naming_custom_sports', 'change', event => {
         setupSportsNaming();
     });
 
-    $('#name_anime_presets').on('change', () => {
+    $(document.body).on('#name_anime_presets', 'change', event => {
         setupAnimeNaming();
     });
 
-    $('#naming_custom_anime').on('change', () => {
+    $(document.body).on('#naming_custom_anime', 'change', event => {
         setupAnimeNaming();
     });
 
-    $('input[name="naming_anime"]').on('click', () => {
+    $(document.body).on('input[name="naming_anime"]', 'click', event => {
         setupAnimeNaming();
     });
 
@@ -331,7 +331,7 @@ MEDUSA.config.postProcessing = function() { // eslint-disable-line max-lines
 
     $('#naming_multi_ep').on('change', fillExamples);
     $('#naming_pattern').on('focusout', fillExamples);
-    $('#naming_pattern').on('keyup', () => {
+    $(document.body).on('#naming_pattern', 'keyup', event => {
         typewatch(() => {
             fillExamples();
         }, 500);
@@ -339,46 +339,46 @@ MEDUSA.config.postProcessing = function() { // eslint-disable-line max-lines
 
     $('#naming_anime_multi_ep').on('change', fillAnimeExamples);
     $('#naming_anime_pattern').on('focusout', fillAnimeExamples);
-    $('#naming_anime_pattern').on('keyup', () => {
+    $(document.body).on('#naming_anime_pattern', 'keyup', event => {
         typewatch(() => {
             fillAnimeExamples();
         }, 500);
     });
 
     $('#naming_abd_pattern').on('focusout', fillExamples);
-    $('#naming_abd_pattern').on('keyup', () => {
+    $(document.body).on('#naming_abd_pattern', 'keyup', event => {
         typewatch(() => {
             fillAbdExamples();
         }, 500);
     });
 
     $('#naming_sports_pattern').on('focusout', fillExamples);
-    $('#naming_sports_pattern').on('keyup', () => {
+    $(document.body).on('#naming_sports_pattern', 'keyup', event => {
         typewatch(() => {
             fillSportsExamples();
         }, 500);
     });
 
     $('#naming_anime_pattern').on('focusout', fillExamples);
-    $('#naming_anime_pattern').on('keyup', () => {
+    $(document.body).on('#naming_anime_pattern', 'keyup', event => {
         typewatch(() => {
             fillAnimeExamples();
         }, 500);
     });
 
-    $('#show_naming_key').on('click', () => {
+    $(document.body).on('#show_naming_key', 'click', event => {
         $('#naming_key').toggle();
     });
-    $('#show_naming_abd_key').on('click', () => {
+    $(document.body).on('#show_naming_abd_key', 'click', event => {
         $('#naming_abd_key').toggle();
     });
-    $('#show_naming_sports_key').on('click', () => {
+    $(document.body).on('#show_naming_sports_key', 'click', event => {
         $('#naming_sports_key').toggle();
     });
-    $('#show_naming_anime_key').on('click', () => {
+    $(document.body).on('#show_naming_anime_key', 'click', event => {
         $('#naming_anime_key').toggle();
     });
-    $('#do_custom').on('click', () => {
+    $(document.body).on('#do_custom', 'click', event => {
         $('#naming_pattern').val($('#name_presets :selected').attr('id'));
         $('#naming_custom').show();
         $('#naming_pattern').focus();
@@ -411,7 +411,7 @@ MEDUSA.config.postProcessing = function() { // eslint-disable-line max-lines
     $(this).showHideMetadata();
     // -- end of metadata options div toggle code --
 
-    $('.metadata_checkbox').on('click', function() {
+    $(document.body).on('.metadata_checkbox', 'click', event => {
         $(this).refreshMetadataConfig(false);
     });
 

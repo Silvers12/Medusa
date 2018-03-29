@@ -1,10 +1,10 @@
 MEDUSA.manage.subtitleMissed = function() {
-    $('.allCheck').on('click', function() {
+    $(document.body).on('.allCheck', 'click', event => {
         const seriesId = $(this).attr('data-indexer-id') + '-' + $(this).attr('data-series-id');
         $('.' + seriesId + '-epcheck').prop('checked', $(this).prop('checked'));
     });
 
-    $('.get_more_eps').on('click', function() {
+    $(document.body).on('.get_more_eps', 'click', event => {
         const indexerId = $(this).attr('data-indexer-id');
         const seriesId = $(this).attr('data-series-id');
         const checked = $('#allCheck-' + indexerId + '-' + seriesId).prop('checked');
@@ -38,7 +38,7 @@ MEDUSA.manage.subtitleMissed = function() {
     });
 
     // Selects all visible episode checkboxes.
-    $('.selectAllShows').on('click', () => {
+    $(document.body).on('.selectAllShows', 'click', event => {
         $('.allCheck').each(function() {
             this.checked = true;
         });
@@ -48,7 +48,7 @@ MEDUSA.manage.subtitleMissed = function() {
     });
 
     // Clears all visible episode checkboxes and the season selectors
-    $('.unselectAllShows').on('click', () => {
+    $(document.body).on('.unselectAllShows', 'click', event => {
         $('.allCheck').each(function() {
             this.checked = false;
         });

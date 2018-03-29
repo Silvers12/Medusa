@@ -249,7 +249,7 @@ Vue.component('file-browser', {
             if (options.showBrowseButton) {
                 // Append the browse button and give it a click behaviour
                 resultField.after(
-                    $('.fileBrowserButton').on('click', function() {
+                    $(document.body).on('.fileBrowserButton', 'click', event => {
                         const initialDir = vm.currentPath || (options.key && path) || '';
                         const optionsWithInitialDir = $.extend({}, options, { initialDir });
                         $(this).nFileBrowser(callback, optionsWithInitialDir);

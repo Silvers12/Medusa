@@ -243,12 +243,12 @@ $.ajaxEpSearch = function(options) {
         }
     });
 
-    $('#forcedSearchModalFailed .btn').on('click', function() {
+    $(document.body).on('#forcedSearchModalFailed .btn', 'click', event => {
         failedDownload = ($(this).text().toLowerCase() === 'yes');
         $('#forcedSearchModalQuality').modal('show');
     });
 
-    $('#forcedSearchModalQuality .btn').on('click', function() {
+    $(document.body).on('#forcedSearchModalQuality .btn', 'click', event => {
         qualityDownload = ($(this).text().toLowerCase() === 'yes');
         forcedSearch();
     });

@@ -4,11 +4,11 @@ MEDUSA.manage.failedDownloads = function() {
         sortList: [],
         headers: { 3: { sorter: false } }
     });
-    $('#limit').on('change', function() {
+    $(document.body).on('#limit', 'change', event => {
         window.location.href = $('base').attr('href') + 'manage/failedDownloads/?limit=' + $(this).val();
     });
 
-    $('#submitMassRemove').on('click', () => {
+    $(document.body).on('#submitMassRemove', 'click', event => {
         const removeArr = [];
 
         $('.removeCheck').each(function() {

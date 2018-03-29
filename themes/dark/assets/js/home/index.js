@@ -1,6 +1,6 @@
 MEDUSA.home.index = function() {
     // Resets the tables sorting, needed as we only use a single call for both tables in tablesorter
-    $('.resetsorting').on('click', () => {
+    $(document.body).on('.resetsorting', 'click', event => {
         $('table').trigger('filterReset');
     });
 
@@ -92,7 +92,7 @@ MEDUSA.home.index = function() {
         $(this).find('.ui-progressbar-value').addClass('progress-' + classToAdd);
     });
 
-    $('img#network').on('error', function() {
+    $(document.body).on('img#network', 'error', event => {
         $(this).parent().text($(this).attr('alt'));
         $(this).remove();
     });
@@ -234,7 +234,7 @@ MEDUSA.home.index = function() {
         // When posters are small enough to not display the .show-details
         // table, display a larger poster when hovering.
         let posterHoverTimer = null;
-        $('.show-container').on('mouseenter', function() {
+        $(document.body).on('.show-container', 'mouseenter', event => {
             const poster = $(this);
             if (poster.find('.show-details').css('display') !== 'none') {
                 return;
@@ -300,12 +300,12 @@ MEDUSA.home.index = function() {
         imgLazyLoad.handleScroll();
     });
 
-    $('#postersort').on('change', function() {
+    $(document.body).on('#postersort', 'change', event => {
         $('.show-grid').isotope({ sortBy: $(this).val() });
         $.get($(this).find('option[value=' + $(this).val() + ']').attr('data-sort'));
     });
 
-    $('#postersortdirection').on('change', function() {
+    $(document.body).on('#postersortdirection', 'change', event => {
         $('.show-grid').isotope({ sortAscending: ($(this).val() === 'true') });
         $.get($(this).find('option[value=' + $(this).val() + ']').attr('data-sort'));
     });
@@ -322,7 +322,7 @@ MEDUSA.home.index = function() {
         }
     });
 
-    $('.show-option .show-layout').on('change', function() {
+    $(document.body).on('.show-option .show-layout', 'change', event => {
         api.patch('config/main', {
             layout: {
                 home: $(this).val()
@@ -335,7 +335,7 @@ MEDUSA.home.index = function() {
         });
     });
 
-    $('#showRootDir').on('change', function() {
+    $(document.body).on('#showRootDir', 'change', event => {
         api.patch('config/main', {
             selectedRootIndex: parseInt($(this).val(), 10)
         }).then(response => {

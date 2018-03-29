@@ -1,5 +1,5 @@
 MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
-    $('.imdbPlot').on('click', function() {
+    $(document.body).on('.imdbPlot', 'click', event => {
         $(this).prev('span').toggle();
         if ($(this).html() === '..show less') {
             $(this).html('..show more');
@@ -45,7 +45,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
     $.ajaxEpSubtitlesSearch();
     $.ajaxEpRedownloadSubtitle();
 
-    $('#seasonJump').on('change', function() {
+    $(document.body).on('#seasonJump', 'change', event => {
         const id = $('#seasonJump option:selected').val();
         if (id && id !== 'jump') {
             const season = $('#seasonJump option:selected').data('season');
@@ -56,17 +56,17 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
         $(this).val('jump');
     });
 
-    $('#prevShow').on('click', () => {
+    $(document.body).on('#prevShow', 'click', event => {
         $('#select-show option:selected').prev('option').prop('selected', true);
         $('#select-show').change();
     });
 
-    $('#nextShow').on('click', () => {
+    $(document.body).on('#nextShow', 'click', event => {
         $('#select-show option:selected').next('option').prop('selected', true);
         $('#select-show').change();
     });
 
-    $('#changeStatus').on('click', () => {
+    $(document.body).on('#changeStatus', 'click', event => {
         const epArr = [];
 
         $('.epCheck').each(function() {
@@ -86,7 +86,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
             '&status=' + $('#statusSelect').val();
     });
 
-    $('.seasonCheck').on('click', function() {
+    $(document.body).on('.seasonCheck', 'click', event => {
         const seasCheck = this;
         const seasNo = $(seasCheck).attr('id');
 
@@ -125,7 +125,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
     });
 
     // Selects all visible episode checkboxes.
-    $('.seriesCheck').on('click', () => {
+    $(document.body).on('.seriesCheck', 'click', event => {
         $('.epCheck:visible').each(function() {
             this.checked = true;
         });
@@ -135,7 +135,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
     });
 
     // Clears all visible episode checkboxes and the season selectors
-    $('.clearAll').on('click', () => {
+    $(document.body).on('.clearAll', 'click', event => {
         $('.epCheck:visible').each(function() {
             this.checked = false;
         });
@@ -156,7 +156,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
     });
 
     // Show/hide different types of rows when the checkboxes are changed
-    $('#checkboxControls input').on('change', function() {
+    $(document.body).on('#checkboxControls input', 'change', event => {
         const whichClass = $(this).attr('id');
         $(this).showHideRows(whichClass);
     });
@@ -283,7 +283,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
         return false;
     }
 
-    $('.sceneSeasonXEpisode').on('change', function() {
+    $(document.body).on('.sceneSeasonXEpisode', 'change', event => {
         // Strip non-numeric characters
         const value = $(this).val();
         $(this).val(value.replace(/[^0-9xX]*/g, ''));
@@ -319,7 +319,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
         }
     });
 
-    $('.sceneAbsolute').on('change', function() {
+    $(document.body).on('.sceneAbsolute', 'change', event => {
         // Strip non-numeric characters
         $(this).val($(this).val().replace(/[^0-9xX]*/g, ''));
         const forAbsolute = $(this).attr('data-for-absolute');
@@ -421,7 +421,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
         setSeasonSceneException(data);
     });
 
-    $('.display-specials a').on('click', function() {
+    $(document.body).on('.display-specials a', 'click', event => {
         api.patch('config/main', {
             layout: {
                 show: {

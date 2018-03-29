@@ -39,11 +39,11 @@ MEDUSA.config.subtitlesPage = function() {
         $('#service_order').val(finalArr.join(' '));
     };
 
-    $('#editAService').on('change', () => {
+    $(document.body).on('#editAService', 'change', event => {
         $.showHideServices();
     });
 
-    $('.service_enabler').on('click', () => {
+    $(document.body).on('.service_enabler', 'click', event => {
         $.refreshServiceList();
     });
 

@@ -162,7 +162,7 @@ MEDUSA.config.search = function() {
         $(optionPanel).show();
     };
 
-    $('#torrent_host').on('input', () => {
+    $(document.body).on('#torrent_host', 'input', event => {
         if ($('#torrent_method :selected').val().toLowerCase() === 'rtorrent') {
             const hostname = $('#torrent_host').val();
             const isMatch = hostname.substr(0, 7) === 'scgi://';
@@ -186,7 +186,7 @@ MEDUSA.config.search = function() {
 
     $(this).nzbMethodHandler();
 
-    $('#testSABnzbd').on('click', () => {
+    $(document.body).on('#testSABnzbd', 'click', event => {
         const sab = {};
         $('#testSABnzbd_result').html(MEDUSA.config.loading);
         sab.host = $('#sab_host').val();
@@ -204,7 +204,7 @@ MEDUSA.config.search = function() {
         });
     });
 
-    $('#testNZBget').on('click', () => {
+    $(document.body).on('#testNZBget', 'click', event => {
         const nzbget = {};
         $('#testNZBget_result').html(MEDUSA.config.loading);
         nzbget.host = $('#nzbget_host').val();
@@ -226,7 +226,7 @@ MEDUSA.config.search = function() {
 
     $.torrentMethodHandler();
 
-    $('#test_torrent').on('click', () => {
+    $(document.body).on('#test_torrent', 'click', event => {
         const torrent = {};
         $('#test_torrent_result').html(MEDUSA.config.loading);
         torrent.method = $('#torrent_method :selected').val();

@@ -53,14 +53,14 @@ MEDUSA.manage.backlogOverview = function() {
         });
     }
 
-    $('#pickShow').on('change', function() {
+    $(document.body).on('#pickShow', 'change', event => {
         const id = $(this).val();
         if (id) {
             $('html,body').animate({ scrollTop: $('#show-' + id).offset().top - 25 }, 'slow');
         }
     });
 
-    $('#backlog_period').on('change', function() {
+    $(document.body).on('#backlog_period', 'change', event => {
         api.patch('config/main', {
             backlogOverview: {
                 period: $(this).val()
@@ -73,7 +73,7 @@ MEDUSA.manage.backlogOverview = function() {
         });
     });
 
-    $('#backlog_status').on('change', function() {
+    $(document.body).on('#backlog_status', 'change', event => {
         api.patch('config/main', {
             backlogOverview: {
                 status: $(this).val()
@@ -86,7 +86,7 @@ MEDUSA.manage.backlogOverview = function() {
         });
     });
 
-    $('.forceBacklog').on('click', function() {
+    $(document.body).on('.forceBacklog', 'click', event => {
         $.get($(this).attr('href'));
         $(this).text('Searching...');
         return false;

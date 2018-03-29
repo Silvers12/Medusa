@@ -118,18 +118,18 @@ $(document).ready(() => {
         }
     }
 
-    $('#archiveEpisodes').on('click', function() {
+    $(document.body).on('#archiveEpisodes', 'click', event => {
         $.get($(this).attr('href'));
         $(this).val('Archiving...');
         archiveEpisodes();
         return false;
     });
 
-    $('#qualityPreset').on('change', () => {
+    $(document.body).on('#qualityPreset', 'change', event => {
         setFromPresets($('#qualityPreset :selected').val());
     });
 
-    $('#qualityPreset, #preferred_qualities, #allowed_qualities').on('change', () => {
+    $(document.body).on('#qualityPreset, #preferred_qualities, #allowed_qualities', 'change', event => {
         setQualityText();
         backloggedEpisodes();
     });

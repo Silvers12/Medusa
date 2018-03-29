@@ -145,16 +145,16 @@ $(document).ready(() => {
         });
     }
 
-    $('#addRootDir').on('click', function() {
+    $(document.body).on('#addRootDir', 'click', event => {
         $(this).nFileBrowser(addRootDir);
     });
-    $('#editRootDir').on('click', function() {
+    $(document.body).on('#editRootDir', 'click', event => {
         $(this).nFileBrowser(editRootDir, {
             initialDir: $('#rootDirs option:selected').val()
         });
     });
 
-    $('#deleteRootDir').on('click', () => {
+    $(document.body).on('#deleteRootDir', 'click', event => {
         if ($('#rootDirs option:selected').length !== 0) {
             const toDelete = $('#rootDirs option:selected');
             const newDefault = (toDelete.attr('id') === $('#whichDefaultRootDir').val());
@@ -186,7 +186,7 @@ $(document).ready(() => {
         });
     });
 
-    $('#defaultRootDir').on('click', () => {
+    $(document.body).on('#defaultRootDir', 'click', event => {
         if ($('#rootDirs option:selected').length !== 0) {
             setDefault($('#rootDirs option:selected').attr('id'));
         }

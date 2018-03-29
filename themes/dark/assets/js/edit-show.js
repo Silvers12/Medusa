@@ -14,7 +14,7 @@ $('#location').fileBrowser({
     title: 'Select Show Location'
 });
 
-$('#submit').on('click', () => {
+$(document.body).on('#submit', 'click', event => {
     const allExceptions = [];
 
     $('#exceptions_list option').each(function() {
@@ -27,7 +27,7 @@ $('#submit').on('click', () => {
         generateBlackWhiteList(); // eslint-disable-line no-undef
     }
 });
-$('#addSceneName').on('click', () => {
+$(document.body).on('#addSceneName', 'click', event => {
     const sceneEx = $('#SceneName').val();
     const option = $('<option>');
     allExceptions = [];
@@ -49,7 +49,7 @@ $('#addSceneName').on('click', () => {
     return option.appendTo('#exceptions_list');
 });
 
-$('#removeSceneName').on('click', function() {
+$(document.body).on('#removeSceneName', 'click', event => {
     $('#exceptions_list option:selected').remove();
 
     $(this).toggleSceneException();

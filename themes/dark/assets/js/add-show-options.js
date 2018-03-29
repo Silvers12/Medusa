@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    $('#saveDefaultsButton').on('click', function() {
+    $(document.body).on('#saveDefaultsButton', 'click', event => {
         const anyQualArray = [];
         const bestQualArray = [];
         $('#allowed_qualities option:selected').each((i, d) => {
@@ -29,11 +29,11 @@ $(document).ready(() => {
         });
     });
 
-    $('#statusSelect, #qualityPreset, #flatten_folders, #allowed_qualities, #preferred_qualities, #subtitles, #scene, #anime, #statusSelectAfter').on('change', () => {
+    $(document.body).on('#statusSelect, #qualityPreset, #flatten_folders, #allowed_qualities, #preferred_qualities, #subtitles, #scene, #anime, #statusSelectAfter', 'change', event => {
         $('#saveDefaultsButton').prop('disabled', false);
     });
 
-    $('#qualityPreset').on('change', () => {
+    $(document.body).on('#qualityPreset', 'change', event => {
         // Fix issue #181 - force re-render to correct the height of the outer div
         $('span.prev').click();
         $('span.next').click();

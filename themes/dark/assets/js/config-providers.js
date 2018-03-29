@@ -354,7 +354,7 @@ $(document).ready(function() { // eslint-disable-line max-lines
         $(this).updateProvider(providerId, url, key, cat);
     });
 
-    $('#newznab_api_key,#newznab_url').on('change', function() {
+    $(document.body).on('#newznab_api_key,#newznab_url', 'change', event => {
         const selectedProvider = $('#editANewznabProvider :selected').val();
 
         if (selectedProvider === 'addNewznab') {
@@ -371,7 +371,7 @@ $(document).ready(function() { // eslint-disable-line max-lines
         $(this).updateProvider(selectedProvider, url, key, cat);
     });
 
-    $('#torrentrss_url,#torrentrss_cookies,#torrentrss_title_tag').on('change', function() {
+    $(document.body).on('#torrentrss_url,#torrentrss_cookies,#torrentrss_title_tag', 'change', event => {
         const selectedProvider = $('#editATorrentRssProvider :selected').val();
 
         if (selectedProvider === 'addTorrentRss') {
@@ -389,11 +389,11 @@ $(document).ready(function() { // eslint-disable-line max-lines
         $(this).showHideProviders();
     });
 
-    $('#editANewznabProvider').on('change', function() {
+    $(document.body).on('#editANewznabProvider', 'change', event => {
         $(this).populateNewznabSection();
     });
 
-    $('#editATorrentRssProvider').on('change', function() {
+    $(document.body).on('#editATorrentRssProvider', 'change', event => {
         $(this).populateTorrentRssSection();
     });
 
@@ -401,7 +401,7 @@ $(document).ready(function() { // eslint-disable-line max-lines
         $(this).refreshProviderList();
     });
 
-    $('#newznab_cat_update').on('click', function() {
+    $(document.body).on('#newznab_cat_update', 'click', event => {
         // Maybe check if there is anything selected?
         $('#newznab_cat option').each(function() {
             $(this).remove();
@@ -439,7 +439,7 @@ $(document).ready(function() { // eslint-disable-line max-lines
         $(this).updateProvider(selectedProvider, url, key, cat);
     });
 
-    $('#newznab_add').on('click', () => {
+    $(document.body).on('#newznab_add', 'click', event => {
         const name = $.trim($('#newznab_name').val());
         const url = $.trim($('#newznab_url').val());
         const key = $.trim($('#newznab_api_key').val());
@@ -465,12 +465,12 @@ $(document).ready(function() { // eslint-disable-line max-lines
         });
     });
 
-    $('.newznab_delete').on('click', function() {
+    $(document.body).on('.newznab_delete', 'click', event => {
         const selectedProvider = $('#editANewznabProvider :selected').val();
         $(this).deleteProvider(selectedProvider);
     });
 
-    $('#torrentrss_add').on('click', () => {
+    $(document.body).on('#torrentrss_add', 'click', event => {
         const name = $('#torrentrss_name').val();
         const url = $('#torrentrss_url').val();
         const cookies = $('#torrentrss_cookies').val();
@@ -495,7 +495,7 @@ $(document).ready(function() { // eslint-disable-line max-lines
         });
     });
 
-    $('.torrentrss_delete').on('click', function() {
+    $(document.body).on('.torrentrss_delete', 'click', event => {
         $(this).deleteTorrentRssProvider($('#editATorrentRssProvider :selected').val());
         $(this).refreshEditAProvider();
     });

@@ -34,7 +34,7 @@ const startVue = () => {
                 $('#new_root_dir_' + options.whichId).change();
             }
 
-            $('.new_root_dir').on('change', function() {
+            $(document.body).on('.new_root_dir', 'change', event => {
                 const curIndex = findDirIndex($(this).attr('id'));
                 $('#display_new_root_dir_' + curIndex).html('<b>' + $(this).val() + '</b>');
             });
@@ -50,7 +50,7 @@ const startVue = () => {
                 });
             });
 
-            $('.delete_root_dir').on('click', function() {
+            $(document.body).on('.delete_root_dir', 'click', event => {
                 const curIndex = findDirIndex($(this).attr('id'));
                 $('#new_root_dir_' + curIndex).val(null);
                 $('#display_new_root_dir_' + curIndex).html('<b>DELETED</b>');

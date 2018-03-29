@@ -20,7 +20,7 @@ $(document).ready(() => {
         });
     });
 
-    $('#showsort').on('change', function() {
+    $(document.body).on('#showsort', 'change', event => {
         let sortCriteria;
         switch (this.value) {
             case 'original':
@@ -48,7 +48,7 @@ $(document).ready(() => {
         });
     });
 
-    $('#showsortdirection').on('change', function() {
+    $(document.body).on('#showsortdirection', 'change', event => {
         $('#container').isotope({
             sortAscending: (this.value === 'asc')
         });

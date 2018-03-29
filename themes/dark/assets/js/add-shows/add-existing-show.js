@@ -9,7 +9,7 @@ MEDUSA.addShows.addExistingShow = function() {
         });
     });
 
-    $('#submitShowDirs').on('click', () => {
+    $(document.body).on('#submitShowDirs', 'click', event => {
         const dirArr = [];
         $('.dirCheck').each(function() {
             if (this.checked === true) {

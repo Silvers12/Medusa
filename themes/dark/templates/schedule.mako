@@ -65,7 +65,7 @@ const startVue = () => {
                     loadingImage: 'loading16' + MEDUSA.config.themeSpinner + '.gif'
                 });
                 $('.ep_summary').hide();
-                $('.ep_summaryTrigger').on('click', function() {
+                $(document.body).on('.ep_summaryTrigger', 'click', event => {
                     $(this).next('.ep_summary').slideToggle('normal', function() {
                         $(this).prev('.ep_summaryTrigger').prop('src', function(i, src) {
                             return $(this).next('.ep_summary').is(':visible') ? src.replace('plus', 'minus') : src.replace('minus', 'plus');
@@ -83,7 +83,7 @@ const startVue = () => {
                 $.tablesorter.columnSelector.attachTo($('#showListTable'), '#popover-target');
             });
 
-            $('.show-option select[name="layout"]').on('change', function() {
+            $(document.body).on('.show-option select[name="layout"]', 'change', event => {
                 api.patch('config/main', {
                     layout: {
                         schedule: $(this).val()

@@ -1,5 +1,5 @@
 MEDUSA.manage.index = function() {
-    $('.resetsorting').on('click', () => {
+    $(document.body).on('.resetsorting', 'click', event => {
         $('table').trigger('filterReset');
     });
 

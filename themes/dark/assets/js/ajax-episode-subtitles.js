@@ -109,7 +109,7 @@ const startAjaxEpisodeSubtitles = function() { // eslint-disable-line no-unused-
             });
         });
 
-        $('#askmanualSubtitleSearchModal .btn').on('click', function() {
+        $(document.body).on('#askmanualSubtitleSearchModal .btn', 'click', event => {
             if ($(this).text().toLowerCase() === 'manual') {
                 // Call manual search
                 searchSubtitles();
@@ -224,7 +224,7 @@ const startAjaxEpisodeSubtitles = function() { // eslint-disable-line no-unused-
     };
 
     $.fn.ajaxEpMergeSubtitles = function() {
-        $('.epMergeSubtitles').on('click', function() {
+        $(document.body).on('.epMergeSubtitles', 'click', event => {
             const subtitlesMergeLink = $(this);
             changeImage(subtitlesMergeLink, loadingSpinner, 'loading', 'loading', 16, true);
             $.getJSON($(this).attr('href'), () => {
@@ -243,7 +243,7 @@ const startAjaxEpisodeSubtitles = function() { // eslint-disable-line no-unused-
             $('#confirmSubtitleReDownloadModal').modal('show');
         });
 
-        $('#confirmSubtitleReDownloadModal .btn.btn-success').on('click', () => {
+        $(document.body).on('#confirmSubtitleReDownloadModal .btn.btn-success', 'click', event => {
             redownloadSubtitles();
         });
 

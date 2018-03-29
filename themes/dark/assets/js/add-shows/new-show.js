@@ -140,7 +140,7 @@ MEDUSA.addShows.newShow = function() {
         });
     }
 
-    $('#searchName').on('click', () => {
+    $(document.body).on('#searchName', 'click', event => {
         searchIndexers();
     });
 
@@ -163,7 +163,7 @@ MEDUSA.addShows.newShow = function() {
         $('#addShowForm').submit();
     });
 
-    $('#qualityPreset').on('change', () => {
+    $(document.body).on('#qualityPreset', 'change', event => {
         myform.loadsection(2); // eslint-disable-line no-use-before-define
     });
 
@@ -207,7 +207,7 @@ MEDUSA.addShows.newShow = function() {
         myform.loadsection(2);
     });
 
-    $('#rootDirs').on('change', () => {
+    $(document.body).on('#rootDirs', 'change', event => {
         updateSampleText();
     });
 };

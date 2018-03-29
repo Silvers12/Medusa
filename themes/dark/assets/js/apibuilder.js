@@ -1,6 +1,6 @@
 $(document).ready(() => {
     // Perform an API call
-    $('[data-action=api-call]').on('click', function() {
+    $(document.body).on('[data-action=api-call]', 'click', event => {
         const parameters = $('[data-command=' + $(this).data('command-name') + ']');
         const profile = $('#option-profile').is(':checked');
         const targetId = $(this).data('target');
@@ -52,12 +52,12 @@ $(document).ready(() => {
     });
 
     // Remove the result of an API call
-    $('[data-action=clear-result]').on('click', function() {
+    $(document.body).on('[data-action=clear-result]', 'click', event => {
         $($(this).data('target')).html('').parents('.result-wrapper').addClass('hidden');
     });
 
     // Update the list of episodes
-    $('[data-action=update-episodes').on('change', function() {
+    $(document.body).on('[data-action=update-episodes', 'change', event => {
         const command = $(this).data('command');
         const select = $('[data-command=' + command + '][name=episode]');
         const season = $(this).val();
@@ -79,7 +79,7 @@ $(document).ready(() => {
     });
 
     // Update the list of seasons
-    $('[data-action=update-seasons').on('change', function() {
+    $(document.body).on('[data-action=update-seasons', 'change', event => {
         const command = $(this).data('command');
         const select = $('[data-command=' + command + '][name=season]');
         const show = $(this).val();
@@ -103,7 +103,7 @@ $(document).ready(() => {
     $('#command-search').typeahead({
         source: commands // eslint-disable-line no-undef
     });
-    $('#command-search').on('change', function() {
+    $(document.body).on('#command-search', 'change', event => {
         const command = $(this).typeahead('getActive');
 
         if (command) {
