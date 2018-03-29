@@ -46,7 +46,7 @@ const startAjaxEpisodeSubtitles = function() { // eslint-disable-line no-unused-
         $('.epSubtitlesSearch').on('click', function(e) {
             // This is for the page 'displayShow.mako'
             e.preventDefault();
-            selectedEpisode = $(this);
+            selectedEpisode = $(event.currentTarget);
             subtitlesTd = selectedEpisode.parent().siblings('.col-subtitles');
             // Ask user if he want to manual search subs or automatic search
             $('#askmanualSubtitleSearchModal').modal('show');
@@ -55,7 +55,7 @@ const startAjaxEpisodeSubtitles = function() { // eslint-disable-line no-unused-
         $('.epSubtitlesSearchPP').on('click', function(e) {
             // This is for the page 'manage_subtitleMissedPP.mako'
             e.preventDefault();
-            selectedEpisode = $(this);
+            selectedEpisode = $(event.currentTarget);
             subtitlesTd = selectedEpisode.parent().siblings('.col-search');
             searchSubtitles();
         });
@@ -63,7 +63,7 @@ const startAjaxEpisodeSubtitles = function() { // eslint-disable-line no-unused-
         // @TODO: move this to a more specific selector
         $(document).on('click', '#pickSub', function(e) {
             e.preventDefault();
-            const subtitlePicked = $(this);
+            const subtitlePicked = $(event.currentTarget);
             changeImage(subtitlePicked, loadingSpinner, 'loading', 'loading', 16, true);
             let subtitleID = subtitlePicked.attr('subtitleID');
             // Remove 'subtitleid-' so we know the actual ID
@@ -91,7 +91,7 @@ const startAjaxEpisodeSubtitles = function() { // eslint-disable-line no-unused-
                             const lang = language;
                             subtitlesTd.children().children().each(function() {
                                 // Check if user already have this subtitle language
-                                if ($(this).attr('alt').indexOf(lang) !== -1) {
+                                if ($(event.currentTarget).attr('alt').indexOf(lang) !== -1) {
                                     hasLang = true;
                                 }
                             });
@@ -110,7 +110,7 @@ const startAjaxEpisodeSubtitles = function() { // eslint-disable-line no-unused-
         });
 
         $(document.body).on('#askmanualSubtitleSearchModal .btn', 'click', event => {
-            if ($(this).text().toLowerCase() === 'manual') {
+            if ($(event.currentTarget).text().toLowerCase() === 'manual') {
                 // Call manual search
                 searchSubtitles();
             } else {
@@ -225,9 +225,9 @@ const startAjaxEpisodeSubtitles = function() { // eslint-disable-line no-unused-
 
     $.fn.ajaxEpMergeSubtitles = function() {
         $(document.body).on('.epMergeSubtitles', 'click', event => {
-            const subtitlesMergeLink = $(this);
+            const subtitlesMergeLink = $(event.currentTarget);
             changeImage(subtitlesMergeLink, loadingSpinner, 'loading', 'loading', 16, true);
-            $.getJSON($(this).attr('href'), () => {
+            $.getJSON($(event.currentTarget).attr('href'), () => {
                 // Don't allow other merges
                 subtitlesMergeLink.remove();
             });
@@ -239,7 +239,7 @@ const startAjaxEpisodeSubtitles = function() { // eslint-disable-line no-unused-
     $.ajaxEpRedownloadSubtitle = function() {
         $('.epRedownloadSubtitle').on('click', function(e) {
             e.preventDefault();
-            selectedEpisode = $(this);
+            selectedEpisode = $(event.currentTarget);
             $('#confirmSubtitleReDownloadModal').modal('show');
         });
 

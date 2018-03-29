@@ -8,7 +8,7 @@ MEDUSA.home.index = function() {
     $('#filterShowName').on('input', _.debounce(() => { // eslint-disable-line no-undef
         $('.show-grid').isotope({
             filter() {
-                const name = $(this).attr('data-name').toLowerCase();
+                const name = $(event.currentTarget).attr('data-name').toLowerCase();
                 return name.indexOf($('#filterShowName').val().toLowerCase()) > -1;
             }
         });
@@ -81,20 +81,20 @@ MEDUSA.home.index = function() {
 
     // This needs to be refined to work a little faster.
     $('.progressbar').each(function() {
-        const percentage = $(this).data('progress-percentage');
+        const percentage = $(event.currentTarget).data('progress-percentage');
         const classToAdd = percentage === 100 ? 100 : percentage > 80 ? 80 : percentage > 60 ? 60 : percentage > 40 ? 40 : 20; // eslint-disable-line no-nested-ternary
-        $(this).progressbar({
+        $(event.currentTarget).progressbar({
             value: percentage
         });
-        if ($(this).data('progress-text')) {
-            $(this).append('<div class="progressbarText" title="' + $(this).data('progress-tip') + '">' + $(this).data('progress-text') + '</div>');
+        if ($(event.currentTarget).data('progress-text')) {
+            $(event.currentTarget).append('<div class="progressbarText" title="' + $(event.currentTarget).data('progress-tip') + '">' + $(event.currentTarget).data('progress-text') + '</div>');
         }
-        $(this).find('.ui-progressbar-value').addClass('progress-' + classToAdd);
+        $(event.currentTarget).find('.ui-progressbar-value').addClass('progress-' + classToAdd);
     });
 
     $(document.body).on('img#network', 'error', event => {
-        $(this).parent().text($(this).attr('alt'));
-        $(this).remove();
+        $(event.currentTarget).parent().text($(event.currentTarget).attr('alt'));
+        $(event.currentTarget).remove();
     });
 
     $('#showListTableSeries:has(tbody tr), #showListTableAnime:has(tbody tr)').tablesorter({
@@ -235,7 +235,7 @@ MEDUSA.home.index = function() {
         // table, display a larger poster when hovering.
         let posterHoverTimer = null;
         $(document.body).on('.show-container', 'mouseenter', event => {
-            const poster = $(this);
+            const poster = $(event.currentTarget);
             if (poster.find('.show-details').css('display') !== 'none') {
                 return;
             }
@@ -255,7 +255,7 @@ MEDUSA.home.index = function() {
                 });
                 popup.find('.show-details').show();
                 popup.on('mouseleave', function() {
-                    $(this).remove();
+                    $(event.currentTarget).remove();
                 });
                 popup.css({ zIndex: '9999' });
                 popup.appendTo('body');
@@ -301,13 +301,13 @@ MEDUSA.home.index = function() {
     });
 
     $(document.body).on('#postersort', 'change', event => {
-        $('.show-grid').isotope({ sortBy: $(this).val() });
-        $.get($(this).find('option[value=' + $(this).val() + ']').attr('data-sort'));
+        $('.show-grid').isotope({ sortBy: $(event.currentTarget).val() });
+        $.get($(event.currentTarget).find('option[value=' + $(event.currentTarget).val() + ']').attr('data-sort'));
     });
 
     $(document.body).on('#postersortdirection', 'change', event => {
-        $('.show-grid').isotope({ sortAscending: ($(this).val() === 'true') });
-        $.get($(this).find('option[value=' + $(this).val() + ']').attr('data-sort'));
+        $('.show-grid').isotope({ sortAscending: ($(event.currentTarget).val() === 'true') });
+        $.get($(event.currentTarget).find('option[value=' + $(event.currentTarget).val() + ']').attr('data-sort'));
     });
 
     $('#popover').popover({
@@ -325,7 +325,7 @@ MEDUSA.home.index = function() {
     $(document.body).on('.show-option .show-layout', 'change', event => {
         api.patch('config/main', {
             layout: {
-                home: $(this).val()
+                home: $(event.currentTarget).val()
             }
         }).then(response => {
             log.info(response);
@@ -337,7 +337,7 @@ MEDUSA.home.index = function() {
 
     $(document.body).on('#showRootDir', 'change', event => {
         api.patch('config/main', {
-            selectedRootIndex: parseInt($(this).val(), 10)
+            selectedRootIndex: parseInt($(event.currentTarget).val(), 10)
         }).then(response => {
             log.info(response);
             window.location.reload();

@@ -392,27 +392,27 @@ MEDUSA.config.postProcessing = function() { // eslint-disable-line max-lines
 
     // -- start of metadata options div toggle code --
     $('#metadataType').on('change keyup', function() {
-        $(this).showHideMetadata();
+        $(event.currentTarget).showHideMetadata();
     });
 
     $.fn.showHideMetadata = function() {
         $('.metadataDiv').each(function() {
-            const targetName = $(this).attr('id');
+            const targetName = $(event.currentTarget).attr('id');
             const selectedTarget = $('#metadataType :selected').val();
 
             if (selectedTarget === targetName) {
-                $(this).show();
+                $(event.currentTarget).show();
             } else {
-                $(this).hide();
+                $(event.currentTarget).hide();
             }
         });
     };
     // Initialize to show the div
-    $(this).showHideMetadata();
+    $(event.currentTarget).showHideMetadata();
     // -- end of metadata options div toggle code --
 
     $(document.body).on('.metadata_checkbox', 'click', event => {
-        $(this).refreshMetadataConfig(false);
+        $(event.currentTarget).refreshMetadataConfig(false);
     });
 
     $.fn.refreshMetadataConfig = function(first) {
@@ -420,7 +420,7 @@ MEDUSA.config.postProcessing = function() { // eslint-disable-line max-lines
         let curMostProvider = '';
 
         $('.metadataDiv').each(function() { // eslint-disable-line complexity
-            const generatorName = $(this).attr('id');
+            const generatorName = $(event.currentTarget).attr('id');
 
             const configArray = [];
             const showMetadata = $('#' + generatorName + '_show_metadata').prop('checked');
@@ -469,11 +469,11 @@ MEDUSA.config.postProcessing = function() { // eslint-disable-line max-lines
 
         if (curMostProvider !== '' && first) {
             $('#metadataType option[value=' + curMostProvider + ']').prop('selected', true);
-            $(this).showHideMetadata();
+            $(event.currentTarget).showHideMetadata();
         }
     };
 
-    $(this).refreshMetadataConfig(true);
+    $(event.currentTarget).refreshMetadataConfig(true);
     $('img[title]').qtip({
         position: {
             at: 'bottom center',

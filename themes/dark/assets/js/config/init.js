@@ -2,21 +2,21 @@ MEDUSA.config.init = function() {
     $('#config-components').tabs();
 
     $(document.body).on('.viewIf', 'click', event => {
-        if ($(this).prop('checked')) {
-            $('.hide_if_' + $(this).attr('id')).css('display', 'none');
-            $('.show_if_' + $(this).attr('id')).fadeIn('fast', 'linear');
+        if ($(event.currentTarget).prop('checked')) {
+            $('.hide_if_' + $(event.currentTarget).attr('id')).css('display', 'none');
+            $('.show_if_' + $(event.currentTarget).attr('id')).fadeIn('fast', 'linear');
         } else {
-            $('.show_if_' + $(this).attr('id')).css('display', 'none');
-            $('.hide_if_' + $(this).attr('id')).fadeIn('fast', 'linear');
+            $('.show_if_' + $(event.currentTarget).attr('id')).css('display', 'none');
+            $('.hide_if_' + $(event.currentTarget).attr('id')).fadeIn('fast', 'linear');
         }
     });
 
     $(document.body).on('.datePresets', 'click', event => {
         let def = $('#date_presets').val();
-        if ($(this).prop('checked') && def === '%x') {
+        if ($(event.currentTarget).prop('checked') && def === '%x') {
             def = '%a, %b %d, %Y';
             $('#date_use_system_default').html('1');
-        } else if (!$(this).prop('checked') && $('#date_use_system_default').html() === '1') {
+        } else if (!$(event.currentTarget).prop('checked') && $('#date_use_system_default').html() === '1') {
             def = '%x';
         }
 
@@ -38,22 +38,22 @@ MEDUSA.config.init = function() {
     $('#configForm').ajaxForm({
         beforeSubmit() {
             $('.config_submitter .config_submitter_refresh').each(function() {
-                $(this).prop('disabled', 'disabled');
-                $(this).after('<span><img src="images/loading16' + MEDUSA.config.themeSpinner + '.gif"> Saving...</span>');
-                $(this).hide();
+                $(event.currentTarget).prop('disabled', 'disabled');
+                $(event.currentTarget).after('<span><img src="images/loading16' + MEDUSA.config.themeSpinner + '.gif"> Saving...</span>');
+                $(event.currentTarget).hide();
             });
         },
         success() {
             setTimeout(() => {
                 $('.config_submitter').each(function() {
-                    $(this).removeAttr('disabled');
-                    $(this).next().remove();
-                    $(this).show();
+                    $(event.currentTarget).removeAttr('disabled');
+                    $(event.currentTarget).next().remove();
+                    $(event.currentTarget).show();
                 });
                 $('.config_submitter_refresh').each(function() {
-                    $(this).removeAttr('disabled');
-                    $(this).next().remove();
-                    $(this).show();
+                    $(event.currentTarget).removeAttr('disabled');
+                    $(event.currentTarget).next().remove();
+                    $(event.currentTarget).show();
                     window.location.href = $('base').attr('href') + 'config/providers/';
                 });
                 $('#email_show').trigger('notify');
@@ -119,9 +119,9 @@ MEDUSA.config.init = function() {
 
         $('div[name="content_github_auth_type"]').each(function(index) {
             if (index === selected) {
-                $(this).show();
+                $(event.currentTarget).show();
             } else {
-                $(this).hide();
+                $(event.currentTarget).hide();
             }
         });
     }

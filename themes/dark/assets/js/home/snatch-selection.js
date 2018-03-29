@@ -1,10 +1,10 @@
 MEDUSA.home.snatchSelection = function() {
     $(document.body).on('.imdbPlot', 'click', event => {
-        $(this).prev('span').toggle();
-        if ($(this).html() === '..show less') {
-            $(this).html('..show more');
+        $(event.currentTarget).prev('span').toggle();
+        if ($(event.currentTarget).html() === '..show less') {
+            $(event.currentTarget).html('..show more');
         } else {
-            $(this).html('..show less');
+            $(event.currentTarget).html('..show less');
         }
         moveSummaryBackground();
     });
@@ -42,7 +42,7 @@ MEDUSA.home.snatchSelection = function() {
     $.fn.loadContainer = function(path, loadingTxt, errorTxt, callback) {
         updateSpinner(loadingTxt);
         $('#manualSearchMeta').load(path + ' #manualSearchMeta meta');
-        $(this).load(path + ' #manualSearchTbody tr', (response, status) => {
+        $(event.currentTarget).load(path + ' #manualSearchTbody tr', (response, status) => {
             if (status === 'error') {
                 updateSpinner(errorTxt, false);
             }
@@ -209,7 +209,7 @@ MEDUSA.home.snatchSelection = function() {
         const season = $('meta[data-last-prov-updates]').attr('data-season');
         const episode = $('meta[data-last-prov-updates]').attr('data-episode');
         const manualSearchType = $('meta[data-last-prov-updates]').attr('data-manual-search-type');
-        const forceSearch = $(this).attr('data-force-search');
+        const forceSearch = $(event.currentTarget).attr('data-force-search');
 
         const checkParams = [indexerName, seriesId, season, episode].every(checkIsTrue => {
             return checkIsTrue;

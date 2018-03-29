@@ -56,13 +56,13 @@ const startVue = () => {
             });
 
             $(document.body).on('#history_limit', 'change', event => {
-                window.location.href = $('base').attr('href') + 'history/?limit=' + $(this).val();
+                window.location.href = $('base').attr('href') + 'history/?limit=' + $(event.currentTarget).val();
             });
 
             $(document.body).on('.show-option select[name="layout"]', 'change', event => {
                 api.patch('config/main', {
                     layout: {
-                        history: $(this).val()
+                        history: $(event.currentTarget).val()
                     }
                 }).then(response => {
                     log.info(response);

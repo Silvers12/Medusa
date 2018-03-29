@@ -97,14 +97,14 @@ MEDUSA.common.init = function() {
     // Scroll to Anchor
     $('a[href^="#season"]').on('click', function(e) {
         e.preventDefault();
-        scrollTo($('a[name="' + $(this).attr('href').replace('#', '') + '"]'));
+        scrollTo($('a[name="' + $(event.currentTarget).attr('href').replace('#', '') + '"]'));
     });
 
     // Hover Dropdown for Nav
     $('ul.nav li.dropdown').hover(function() {
-        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+        $(event.currentTarget).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
     }, function() {
-        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+        $(event.currentTarget).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
     });
 
     // Function to change luminance of #000000 color - used in triggerhighlighting
@@ -136,10 +136,10 @@ MEDUSA.common.init = function() {
 
     let revertBackgroundColor; // Used to revert back to original background-color after highlight
     $(document.body).on('.triggerhighlight', 'mouseover', event => {
-        revertBackgroundColor = rgb2hex($(this).parent().css('background-color')); // Fetch the original background-color to revert back to
-        $(this).parent().find('.triggerhighlight').css('background-color', colorLuminance(revertBackgroundColor, -0.15)); // Setting highlight background-color
+        revertBackgroundColor = rgb2hex($(event.currentTarget).parent().css('background-color')); // Fetch the original background-color to revert back to
+        $(event.currentTarget).parent().find('.triggerhighlight').css('background-color', colorLuminance(revertBackgroundColor, -0.15)); // Setting highlight background-color
     }).on('mouseout', function() {
-        $(this).parent().find('.triggerhighlight').css('background-color', revertBackgroundColor); // Reverting back to original background-color
+        $(event.currentTarget).parent().find('.triggerhighlight').css('background-color', revertBackgroundColor); // Reverting back to original background-color
     });
 
     $.rootDirCheck = function() {
@@ -208,14 +208,14 @@ MEDUSA.common.init = function() {
 
     $('#config-components').tabs({
         activate(event, ui) {
-            let lastOpenedPanel = $(this).data('lastOpenedPanel');
+            let lastOpenedPanel = $(event.currentTarget).data('lastOpenedPanel');
 
             if (!lastOpenedPanel) {
                 lastOpenedPanel = $(ui.oldPanel);
             }
 
-            if (!$(this).data('topPositionTab')) {
-                $(this).data('topPositionTab', $(ui.newPanel).position().top);
+            if (!$(event.currentTarget).data('topPositionTab')) {
+                $(event.currentTarget).data('topPositionTab', $(ui.newPanel).position().top);
             }
 
             // Dont use the builtin fx effects. This will fade in/out both tabs, we dont want that
@@ -230,14 +230,14 @@ MEDUSA.common.init = function() {
                 lastOpenedPanel
                     .toggleClass('ui-tabs-hide')
                     .css('position', 'absolute')
-                    .css('top', $(this).data('topPositionTab') + 'px')
+                    .css('top', $(event.currentTarget).data('topPositionTab') + 'px')
                     .fadeOut(0, function() {
-                        $(this).css('position', '');
+                        $(event.currentTarget).css('position', '');
                     });
             }
 
             // Saving the last tab has been opened
-            $(this).data('lastOpenedPanel', $(ui.newPanel));
+            $(event.currentTarget).data('lastOpenedPanel', $(ui.newPanel));
         }
     });
 
@@ -245,7 +245,7 @@ MEDUSA.common.init = function() {
     // hack alert: if we don't have a touchscreen, and we are already hovering the mouse, then click should link instead of toggle
     if ((navigator.maxTouchPoints || 0) < 2) {
         $(document.body).on('.dropdown-toggle', 'click', event => {
-            const $this = $(this);
+            const $this = $(event.currentTarget);
             if ($this.attr('aria-expanded') === 'true') {
                 window.location.href = $('base').attr('href') + $this.attr('href');
             }
@@ -278,7 +278,7 @@ MEDUSA.common.init = function() {
 
     $(document.body).on('click', 'a[data-no-redirect]', function(e) {
         e.preventDefault();
-        $.get($(this).attr('href'));
+        $.get($(event.currentTarget).attr('href'));
         return false;
     });
 
@@ -287,34 +287,34 @@ MEDUSA.common.init = function() {
         const whichBulkCheck = $(bulkCheck).attr('id');
 
         $('.' + whichBulkCheck + ':visible').each(function() {
-            $(this).prop('checked', $(bulkCheck).prop('checked'));
+            $(event.currentTarget).prop('checked', $(bulkCheck).prop('checked'));
         });
     });
 
     $('.enabler').each(function() {
-        if (!$(this).prop('checked')) {
-            $('#content_' + $(this).attr('id')).hide();
+        if (!$(event.currentTarget).prop('checked')) {
+            $('#content_' + $(event.currentTarget).attr('id')).hide();
         }
     });
 
     $(document.body).on('.enabler', 'click', event => {
-        if ($(this).prop('checked')) {
-            $('#content_' + $(this).attr('id')).fadeIn('fast', 'linear');
+        if ($(event.currentTarget).prop('checked')) {
+            $('#content_' + $(event.currentTarget).attr('id')).fadeIn('fast', 'linear');
         } else {
-            $('#content_' + $(this).attr('id')).fadeOut('fast', 'linear');
+            $('#content_' + $(event.currentTarget).attr('id')).fadeOut('fast', 'linear');
         }
     });
 
     $('.addQTip').each(function() {
-        $(this).css({
+        $(event.currentTarget).css({
             'cursor': 'help', // eslint-disable-line quote-props
             'text-shadow': '0px 0px 0.5px #666'
         });
 
-        const my = $(this).data('qtip-my') || 'left center';
-        const at = $(this).data('qtip-at') || 'middle right';
+        const my = $(event.currentTarget).data('qtip-my') || 'left center';
+        const at = $(event.currentTarget).data('qtip-at') || 'middle right';
 
-        $(this).qtip({
+        $(event.currentTarget).qtip({
             show: {
                 solo: true
             },

@@ -135,11 +135,11 @@ $.ajaxEpSearch = function(options) {
         event.preventDefault();
 
         // Check if we have disabled the click
-        if ($(this).prop('enableClick') === '0') {
+        if ($(event.currentTarget).prop('enableClick') === '0') {
             return false;
         }
 
-        selectedEpisode = $(this);
+        selectedEpisode = $(event.currentTarget);
 
         $('#forcedSearchModalFailed').modal('show');
     });
@@ -210,14 +210,14 @@ $.ajaxEpSearch = function(options) {
         event.preventDefault();
 
         // Check if we have disabled the click
-        if ($(this).prop('enableClick') === '0') {
+        if ($(event.currentTarget).prop('enableClick') === '0') {
             return false;
         }
 
-        selectedEpisode = $(this);
+        selectedEpisode = $(event.currentTarget);
 
         // @TODO: Replace this with an easier to read selector
-        if ($(this).parent().parent().children('.col-status').children('.quality').length > 0) {
+        if ($(event.currentTarget).parent().parent().children('.col-status').children('.quality').length > 0) {
             $('#forcedSearchModalQuality').modal('show');
         } else {
             forcedSearch();
@@ -228,7 +228,7 @@ $.ajaxEpSearch = function(options) {
         event.preventDefault();
 
         // @TODO: Omg this disables all the manual snatch icons, when one is clicked
-        if ($(this).hasClass('disabled')) {
+        if ($(event.currentTarget).hasClass('disabled')) {
             return false;
         }
 
@@ -244,12 +244,12 @@ $.ajaxEpSearch = function(options) {
     });
 
     $(document.body).on('#forcedSearchModalFailed .btn', 'click', event => {
-        failedDownload = ($(this).text().toLowerCase() === 'yes');
+        failedDownload = ($(event.currentTarget).text().toLowerCase() === 'yes');
         $('#forcedSearchModalQuality').modal('show');
     });
 
     $(document.body).on('#forcedSearchModalQuality .btn', 'click', event => {
-        qualityDownload = ($(this).text().toLowerCase() === 'yes');
+        qualityDownload = ($(event.currentTarget).text().toLowerCase() === 'yes');
         forcedSearch();
     });
 };

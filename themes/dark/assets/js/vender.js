@@ -10576,7 +10576,7 @@ this.activeTarget=b,this.clear();var c=this.selector+'[data-target="'+b+'"],'+th
       return this.data('active');
     }
     return this.each(function () {
-      var $this = $(this);
+      var $this = $(event.currentTarget);
       var data = $this.data('typeahead');
       var options = typeof option == 'object' && option;
       if (!data) $this.data('typeahead', (data = new Typeahead(this, options)));
@@ -10621,7 +10621,7 @@ this.activeTarget=b,this.clear();var c=this.selector+'[data-target="'+b+'"],'+th
   * ================== */
 
   $(document).on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
-    var $this = $(this);
+    var $this = $(event.currentTarget);
     if ($this.data('typeahead')) return;
     $this.typeahead($this.data());
   });
@@ -13025,7 +13025,7 @@ return t=a?function(t){return t&&a(r(t))}:function(t){return t&&r(t)}}function e
     var returnValues;
     
     this.each(function (eachIndex) {
-      var $this = $(this)
+      var $this = $(event.currentTarget)
         , obj = $this.data('backstretch');
 
       // Do we already have an instance attached to this element?
@@ -13849,7 +13849,7 @@ return t=a?function(t){return t&&a(r(t))}:function(t){return t&&r(t)}}function e
                 .css({width: boxWidth, height: boxHeight})
                 .find('>.backstretch-item').not('.deleteable')
                 .each(function () {
-                  var $wrapper = $(this);
+                  var $wrapper = $(event.currentTarget);
                   $wrapper.find('img,video,iframe')
                           .css(bgCSS);
                 });
@@ -13917,7 +13917,7 @@ return t=a?function(t){return t&&a(r(t))}:function(t){return t&&r(t)}}function e
         }
 
         that.$item.bind(isVideo ? 'canplay' : 'load', function (e) {
-            var $this = $(this)
+            var $this = $(event.currentTarget)
               , $wrapper = $this.parent()
               , options = $wrapper.data('options');
               
@@ -14077,7 +14077,7 @@ return t=a?function(t){return t&&a(r(t))}:function(t){return t&&r(t)}}function e
 
               this.$item
                 .on('playing.cycle', function () {
-                  var player = $(this).data('player');
+                  var player = $(event.currentTarget).data('player');
 
                   clearTimeout(lastFrameTimeout);
                   lastFrameTimeout = setTimeout(function () {
@@ -14599,7 +14599,7 @@ return t=a?function(t){return t&&a(r(t))}:function(t){return t&&r(t)}}function e
             e.preventDefault();
 
             var newOptions = $.extend({
-                button: $(this)
+                button: $(event.currentTarget)
             }, options);
 
             $.confirm(newOptions, e);
@@ -14758,7 +14758,7 @@ return t=a?function(t){return t&&a(r(t))}:function(t){return t&&r(t)}}function e
 	$(document).ready(function() {
 		$('#myForm').on('submit', function(e) {
 			e.preventDefault(); // <-- important
-			$(this).ajaxSubmit({
+			$(event.currentTarget).ajaxSubmit({
 				target: '#output'
 			});
 		});
@@ -14969,7 +14969,7 @@ $.fn.ajaxSubmit = function(options, data, dataType, onSuccess) {
 
 	// [value] (issue #113), also see comment:
 	// https://github.com/malsup/form/commit/588306aedba1de01388032d5f42a60159eea9228#commitcomment-2180219
-	var fileInputs = $('input[type=file]:enabled', this).filter(function() { return $(this).val() !== ''; });
+	var fileInputs = $('input[type=file]:enabled', this).filter(function() { return $(event.currentTarget).val() !== ''; });
 
 	var hasFileInputs = fileInputs.length > 0;
 	var mp = 'multipart/form-data';
@@ -15949,9 +15949,9 @@ $.fn.clearFields = $.fn.clearInputs = function(includeHidden) {
 		}
 		else if (t == "file") {
 			if (/MSIE/.test(navigator.userAgent)) {
-				$(this).replaceWith($(this).clone(true));
+				$(event.currentTarget).replaceWith($(event.currentTarget).clone(true));
 			} else {
-				$(this).val('');
+				$(event.currentTarget).val('');
 			}
 		}
 		else if (includeHidden) {
@@ -15960,7 +15960,7 @@ $.fn.clearFields = $.fn.clearInputs = function(includeHidden) {
 			// $('#myForm').clearForm('.special:hidden')
 			// the above would clean hidden inputs that have the class of 'special'
 			if ( (includeHidden === true && /hidden/.test(t)) ||
-				 (typeof includeHidden == 'string' && $(this).is(includeHidden)) ) {
+				 (typeof includeHidden == 'string' && $(event.currentTarget).is(includeHidden)) ) {
 				this.value = '';
 			}
 		}
@@ -15980,7 +15980,7 @@ $.fn.clearFields = $.fn.clearInputs = function(includeHidden) {
  */
 $.fn.resetForm = function() {
 	return this.each(function() {
-		var el = $(this);
+		var el = $(event.currentTarget);
 		var tag = this.tagName.toLowerCase();
 		switch (tag) {
 			case 'input':
@@ -16052,7 +16052,7 @@ $.fn.selected = function(select) {
 			this.checked = select;
 		}
 		else if (this.tagName.toLowerCase() == 'option') {
-			var $sel = $(this).parent('select');
+			var $sel = $(event.currentTarget).parent('select');
 			if (select && $sel[0] && $sel[0].type == 'select-one') {
 				// deselect all other options
 				$sel.find('option').selected(false);
@@ -16228,8 +16228,8 @@ function log() {
           var settings = $.extend({}, DEFAULT_SETTINGS, options || {});
 
           return this.each(function () {
-              $(this).data("settings", settings);
-              $(this).data("tokenInputObject", new $.TokenList(this, url_or_data_or_function, settings));
+              $(event.currentTarget).data("settings", settings);
+              $(event.currentTarget).data("tokenInputObject", new $.TokenList(this, url_or_data_or_function, settings));
           });
       },
       clear: function() {
@@ -16252,7 +16252,7 @@ function log() {
           return this;
       },
       setOptions: function(options){
-          $(this).data("settings", $.extend({}, $(this).data("settings"), options || {}));
+          $(event.currentTarget).data("settings", $.extend({}, $(event.currentTarget).data("settings"), options || {}));
           return this;
       },
       destroy: function () {
@@ -16354,7 +16354,7 @@ function log() {
                 add_freetagging_tokens();
               }
 
-              $(this).val("");
+              $(event.currentTarget).val("");
               token_list.removeClass($(input).data("settings").classes.focused);
           })
           .bind("keyup keydown blur update", resize_input)
@@ -16419,7 +16419,7 @@ function log() {
                         }
 
                         return false;
-                      } else if($(this).val().length === 1) {
+                      } else if($(event.currentTarget).val().length === 1) {
                           hide_dropdown();
                       } else {
                           // set a timeout just long enough to let this function finish.
@@ -16436,13 +16436,13 @@ function log() {
                       hidden_input.change();
                     } else {
                       if ($(input).data("settings").allowFreeTagging) {
-                        if($(input).data("settings").allowTabOut && $(this).val() === "") {
+                        if($(input).data("settings").allowTabOut && $(event.currentTarget).val() === "") {
                           return true;
                         } else {
                           add_freetagging_tokens();
                         }
                       } else {
-                        $(this).val("");
+                        $(event.currentTarget).val("");
                         if($(input).data("settings").allowTabOut) {
                           return true;
                         }
@@ -16580,8 +16580,8 @@ function log() {
 
       this.clear = function() {
           token_list.children("li").each(function() {
-              if ($(this).children("input").length === 0) {
-                  delete_token($(this));
+              if ($(event.currentTarget).children("input").length === 0) {
+                  delete_token($(event.currentTarget));
               }
           });
       };
@@ -16592,8 +16592,8 @@ function log() {
 
       this.remove = function(item) {
           token_list.children("li").each(function() {
-              if ($(this).children("input").length === 0) {
-                  var currToken = $(this).data("tokeninput");
+              if ($(event.currentTarget).children("input").length === 0) {
+                  var currToken = $(event.currentTarget).data("tokeninput");
                   var match = true;
                   for (var prop in item) {
                       if (item[prop] !== currToken[prop]) {
@@ -16602,7 +16602,7 @@ function log() {
                       }
                   }
                   if (match) {
-                      delete_token($(this));
+                      delete_token($(event.currentTarget));
                   }
               }
           });
@@ -16697,7 +16697,7 @@ function log() {
                 .appendTo($this_token)
                 .click(function () {
                     if (!$(input).data("settings").disabled) {
-                        delete_token($(this).parent());
+                        delete_token($(event.currentTarget).parent());
                         hidden_input.change();
                         return false;
                     }
@@ -16734,7 +16734,7 @@ function log() {
           if(token_count > 0 && $(input).data("settings").preventDuplicates) {
               var found_existing_token = null;
               token_list.children().each(function () {
-                  var existing_token = $(this);
+                  var existing_token = $(event.currentTarget);
                   var existing_data = $.data(existing_token.get(0), "tokeninput");
                   if(existing_data && existing_data[settings.tokenValue] === item[settings.tokenValue]) {
                       found_existing_token = existing_token;
@@ -53991,11 +53991,11 @@ success_icon:"fa fa-check",error_icon:"fa fa-warning"});document.body?p():c(p);r
                     } else {
                         notice.cancelRemove();
                     }
-                    $(this).trigger("pnotify_icon");
+                    $(event.currentTarget).trigger("pnotify_icon");
                 }
             })
             .bind("pnotify_icon", function(){
-                $(this).children().removeClass(notice.styles.pin_up+" "+notice.styles.pin_down).addClass(notice.options.hide ? notice.styles.pin_up : notice.styles.pin_down);
+                $(event.currentTarget).children().removeClass(notice.styles.pin_up+" "+notice.styles.pin_down).addClass(notice.options.hide ? notice.styles.pin_up : notice.styles.pin_down);
             })
             .append($("<span />", {"class": notice.styles.pin_up, "title": options.labels.stick}))
             .prependTo(notice.container);
@@ -54550,13 +54550,13 @@ Notification.requestPermission():"webkitNotifications"in window&&window.webkitNo
                             "class": "ui-pnotify-history-all "+notice.styles.hi_btn,
                             "text": options.labels.all,
                             "mouseenter": function(){
-                                $(this).addClass(notice.styles.hi_btnhov);
+                                $(event.currentTarget).addClass(notice.styles.hi_btnhov);
                             },
                             "mouseleave": function(){
-                                $(this).removeClass(notice.styles.hi_btnhov);
+                                $(event.currentTarget).removeClass(notice.styles.hi_btnhov);
                             },
                             "click": function(){
-                                $(this).trigger("pnotify.history-all");
+                                $(event.currentTarget).trigger("pnotify.history-all");
                                 return false;
                             }
                     }))
@@ -54564,13 +54564,13 @@ Notification.requestPermission():"webkitNotifications"in window&&window.webkitNo
                             "class": "ui-pnotify-history-last "+notice.styles.hi_btn,
                             "text": options.labels.last,
                             "mouseenter": function(){
-                                $(this).addClass(notice.styles.hi_btnhov);
+                                $(event.currentTarget).addClass(notice.styles.hi_btnhov);
                             },
                             "mouseleave": function(){
-                                $(this).removeClass(notice.styles.hi_btnhov);
+                                $(event.currentTarget).removeClass(notice.styles.hi_btnhov);
                             },
                             "click": function(){
-                                $(this).trigger("pnotify.history-last");
+                                $(event.currentTarget).trigger("pnotify.history-last");
                                 return false;
                             }
                     }))
@@ -54685,7 +54685,7 @@ hi_btnhov:"ui-state-hover",hi_hnd:"ui-icon ui-icon-grip-dotted-horizontal"});b.e
             if (e.match(re_mouse_events)) {
                 // This allows the click event to fire on the notice. There is
                 // probably a much better way to do it.
-                $(this).offset();
+                $(event.currentTarget).offset();
                 event_object = document.createEvent("MouseEvents");
                 event_object.initMouseEvent(
                     e, orig_e.bubbles, orig_e.cancelable, orig_e.view, orig_e.detail,
@@ -55180,7 +55180,7 @@ ImagesLoaded.makeJQueryPlugin = function( jQuery ) {
   // $().imagesLoaded()
   $.fn.imagesLoaded = function( options, callback ) {
     var instance = new ImagesLoaded( this, options, callback );
-    return instance.jqDeferred.promise( $(this) );
+    return instance.jqDeferred.promise( $(event.currentTarget) );
   };
 };
 // try making plugin
@@ -55529,7 +55529,7 @@ function sanitizeOptions(opts) {
 			delete content.ajax;
 
 			content.text = function(event, api) {
-				var loading = text || $(this).attr(api.options.content.attr) || 'Loading...',
+				var loading = text || $(event.currentTarget).attr(api.options.content.attr) || 'Loading...',
 
 				deferred = $.ajax(
 					$.extend({}, ajax, { context: api })
@@ -55864,10 +55864,10 @@ PROTOTYPE._createTitle = function()
 
 	// Button-specific events
 	.delegate('.qtip-close', 'mousedown keydown mouseup keyup mouseout', function(event) {
-		$(this).toggleClass('ui-state-active ui-state-focus', event.type.substr(-4) === 'down');
+		$(event.currentTarget).toggleClass('ui-state-active ui-state-focus', event.type.substr(-4) === 'down');
 	})
 	.delegate('.qtip-close', 'mouseover mouseout', function(event){
-		$(this).toggleClass('ui-state-hover', event.type === 'mouseover');
+		$(event.currentTarget).toggleClass('ui-state-hover', event.type === 'mouseover');
 	});
 
 	// Create button if enabled
@@ -56082,7 +56082,7 @@ PROTOTYPE.reposition = function(event, effect) {
 		posOptions.effect.call(tooltip, this, $.extend({}, position));
 		tooltip.queue(function(next) {
 			// Reset attributes to avoid cross-browser rendering bugs
-			$(this).css({ opacity: '', height: '' });
+			$(event.currentTarget).css({ opacity: '', height: '' });
 			if(BROWSER.ie) { this.style.removeAttribute('filter'); }
 
 			next();
@@ -57021,7 +57021,7 @@ QTIP = $.fn.qtip = function(options, notation, newValue)
 			id = !id || id === FALSE || id.length < 1 || QTIP.api[id] ? QTIP.nextid++ : id;
 
 			// Initialize the qTip and re-grab newly sanitized options
-			api = init($(this), id, opts);
+			api = init($(event.currentTarget), id, opts);
 			if(api === FALSE) { return TRUE; }
 			else { QTIP.api[id] = api; }
 
@@ -57147,7 +57147,7 @@ QTIP.defaults = {
 			method: 'flipinvert flipinvert'
 		},
 		effect: function(api, pos, viewport) {
-			$(this).animate(pos, {
+			$(event.currentTarget).animate(pos, {
 				duration: 200,
 				queue: FALSE
 			});
@@ -57587,7 +57587,7 @@ $.extend(Tip.prototype, {
 				height: newSize[1] + border
 			})
 			.each(function(i) {
-				var $this = $(this);
+				var $this = $(event.currentTarget);
 
 				// Set shape specific attributes
 				$this[ $this.prop ? 'prop' : 'attr' ]({
@@ -58981,7 +58981,7 @@ function sanitizeOptions(opts) {
 			delete content.ajax;
 
 			content.text = function(event, api) {
-				var loading = text || $(this).attr(api.options.content.attr) || 'Loading...',
+				var loading = text || $(event.currentTarget).attr(api.options.content.attr) || 'Loading...',
 
 				deferred = $.ajax(
 					$.extend({}, ajax, { context: api })
@@ -59316,10 +59316,10 @@ PROTOTYPE._createTitle = function()
 
 	// Button-specific events
 	.delegate('.qtip-close', 'mousedown keydown mouseup keyup mouseout', function(event) {
-		$(this).toggleClass('ui-state-active ui-state-focus', event.type.substr(-4) === 'down');
+		$(event.currentTarget).toggleClass('ui-state-active ui-state-focus', event.type.substr(-4) === 'down');
 	})
 	.delegate('.qtip-close', 'mouseover mouseout', function(event){
-		$(this).toggleClass('ui-state-hover', event.type === 'mouseover');
+		$(event.currentTarget).toggleClass('ui-state-hover', event.type === 'mouseover');
 	});
 
 	// Create button if enabled
@@ -59534,7 +59534,7 @@ PROTOTYPE.reposition = function(event, effect) {
 		posOptions.effect.call(tooltip, this, $.extend({}, position));
 		tooltip.queue(function(next) {
 			// Reset attributes to avoid cross-browser rendering bugs
-			$(this).css({ opacity: '', height: '' });
+			$(event.currentTarget).css({ opacity: '', height: '' });
 			if(BROWSER.ie) { this.style.removeAttribute('filter'); }
 
 			next();
@@ -60473,7 +60473,7 @@ QTIP = $.fn.qtip = function(options, notation, newValue)
 			id = !id || id === FALSE || id.length < 1 || QTIP.api[id] ? QTIP.nextid++ : id;
 
 			// Initialize the qTip and re-grab newly sanitized options
-			api = init($(this), id, opts);
+			api = init($(event.currentTarget), id, opts);
 			if(api === FALSE) { return TRUE; }
 			else { QTIP.api[id] = api; }
 
@@ -60599,7 +60599,7 @@ QTIP.defaults = {
 			method: 'flipinvert flipinvert'
 		},
 		effect: function(api, pos, viewport) {
-			$(this).animate(pos, {
+			$(event.currentTarget).animate(pos, {
 				duration: 200,
 				queue: FALSE
 			});
@@ -63663,11 +63663,11 @@ QTIP.defaults = {
 					.unbind('mouseenter.tsuitheme mouseleave.tsuitheme')
 					.bind('mouseenter.tsuitheme mouseleave.tsuitheme', function(event) {
 						// toggleClass with switch added in jQuery 1.3
-						$(this)[ event.type === 'mouseenter' ? 'addClass' : 'removeClass' ](themes.hover || '');
+						$(event.currentTarget)[ event.type === 'mouseenter' ? 'addClass' : 'removeClass' ](themes.hover || '');
 					});
 
 				$headers.each(function(){
-					var $this = $(this);
+					var $this = $(event.currentTarget);
 					if (!$this.find('.' + ts.css.wrapper).length) {
 						// Firefox needs this inner div to position the icon & resizer correctly
 						$this.wrapInner('<div class="' + ts.css.wrapper + '" style="position:relative;height:100%;width:100%"></div>');
@@ -63778,7 +63778,7 @@ QTIP.defaults = {
 				$rows = $tbody.children('tr');
 				// loop through the visible rows
 				$rows.each(function() {
-					$row = $(this);
+					$row = $(event.currentTarget);
 					if (this.style.display !== 'none') {
 						// remove all columns class names
 						$cells = $row.children().removeClass(remove);
@@ -63821,7 +63821,7 @@ QTIP.defaults = {
 			for (tbodyIndex = 0; tbodyIndex < $tbodies.length; tbodyIndex++ ) {
 				$tbody = ts.processTbody(table, $tbodies.eq(tbodyIndex), true); // remove tbody
 				$tbody.children('tr').each(function() {
-					$(this).children().removeClass(remove);
+					$(event.currentTarget).children().removeClass(remove);
 				});
 				ts.processTbody(table, $tbody, false); // restore tbody
 			}
@@ -66176,7 +66176,7 @@ QTIP.defaults = {
 			if ( ts.hasWidget( c.table, 'scroller' ) ) {
 				tableHeight = 0;
 				c.$table.closest( '.' + ts.css.scrollerWrap ).children().each(function(){
-					var $this = $(this);
+					var $this = $(event.currentTarget);
 					// center table has a max-height set
 					tableHeight += $this.filter('[style*="height"]').length ? $this.height() : $this.children('table').height();
 				});
@@ -66184,7 +66184,7 @@ QTIP.defaults = {
 			// subtract out table left position from resizable handles. Fixes #864
 			startPosition = c.$table.position().left;
 			$handles.each( function() {
-				var $this = $(this),
+				var $this = $(event.currentTarget),
 					column = parseInt( $this.attr( 'data-column' ), 10 ),
 					columns = c.columns - 1,
 					$header = $this.data( 'header' );
@@ -66638,14 +66638,14 @@ return jQuery.tablesorter;
     },
     update: function(timestamp) {
       var date = (timestamp instanceof Date) ? timestamp : $t.parse(timestamp);
-      $(this).data('timeago', { datetime: date });
+      $(event.currentTarget).data('timeago', { datetime: date });
       if ($t.settings.localeTitle) {
-        $(this).attr("title", date.toLocaleString());
+        $(event.currentTarget).attr("title", date.toLocaleString());
       }
       refresh.apply(this);
     },
     updateFromDOM: function() {
-      $(this).data('timeago', { datetime: $t.parse( $t.isTime(this) ? $(this).attr("datetime") : $(this).attr("title") ) });
+      $(event.currentTarget).data('timeago', { datetime: $t.parse( $t.isTime(this) ? $(event.currentTarget).attr("datetime") : $(event.currentTarget).attr("title") ) });
       refresh.apply(this);
     },
     dispose: function () {
@@ -66674,7 +66674,7 @@ return jQuery.tablesorter;
     //check if it's still visible
     if ($s.autoDispose && !$.contains(document.documentElement,this)) {
       //stop if it has been removed
-      $(this).timeago("dispose");
+      $(event.currentTarget).timeago("dispose");
       return this;
     }
 
@@ -66682,10 +66682,10 @@ return jQuery.tablesorter;
 
     if (!isNaN(data.datetime)) {
       if ( $s.cutoff === 0 || Math.abs(distance(data.datetime)) < $s.cutoff) {
-        $(this).text(inWords(data.datetime));
+        $(event.currentTarget).text(inWords(data.datetime));
       } else {
-        if ($(this).attr('title').length > 0) {
-            $(this).text($(this).attr('title'));
+        if ($(event.currentTarget).attr('title').length > 0) {
+            $(event.currentTarget).text($(event.currentTarget).attr('title'));
         }
       }
     }

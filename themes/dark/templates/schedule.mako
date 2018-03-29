@@ -66,9 +66,9 @@ const startVue = () => {
                 });
                 $('.ep_summary').hide();
                 $(document.body).on('.ep_summaryTrigger', 'click', event => {
-                    $(this).next('.ep_summary').slideToggle('normal', function() {
-                        $(this).prev('.ep_summaryTrigger').prop('src', function(i, src) {
-                            return $(this).next('.ep_summary').is(':visible') ? src.replace('plus', 'minus') : src.replace('minus', 'plus');
+                    $(event.currentTarget).next('.ep_summary').slideToggle('normal', function() {
+                        $(event.currentTarget).prev('.ep_summaryTrigger').prop('src', function(i, src) {
+                            return $(event.currentTarget).next('.ep_summary').is(':visible') ? src.replace('plus', 'minus') : src.replace('minus', 'plus');
                         });
                     });
                 });
@@ -86,7 +86,7 @@ const startVue = () => {
             $(document.body).on('.show-option select[name="layout"]', 'change', event => {
                 api.patch('config/main', {
                     layout: {
-                        schedule: $(this).val()
+                        schedule: $(event.currentTarget).val()
                     }
                 }).then(response => {
                     log.info(response);

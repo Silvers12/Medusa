@@ -1,10 +1,10 @@
 MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
     $(document.body).on('.imdbPlot', 'click', event => {
-        $(this).prev('span').toggle();
-        if ($(this).html() === '..show less') {
-            $(this).html('..show more');
+        $(event.currentTarget).prev('span').toggle();
+        if ($(event.currentTarget).html() === '..show less') {
+            $(event.currentTarget).html('..show more');
         } else {
-            $(this).html('..show less');
+            $(event.currentTarget).html('..show less');
         }
         moveSummaryBackground();
         movecheckboxControlsBackground();
@@ -53,7 +53,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
             $('#collapseSeason-' + season).collapse('show');
             location.hash = id;
         }
-        $(this).val('jump');
+        $(event.currentTarget).val('jump');
     });
 
     $(document.body).on('#prevShow', 'click', event => {
@@ -71,7 +71,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
 
         $('.epCheck').each(function() {
             if (this.checked === true) {
-                epArr.push($(this).attr('id'));
+                epArr.push($(event.currentTarget).attr('id'));
             }
         });
 
@@ -92,7 +92,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
 
         $('#collapseSeason-' + seasNo).collapse('show');
         $('.epCheck:visible').each(function() {
-            const epParts = $(this).attr('id').split('x');
+            const epParts = $(event.currentTarget).attr('id').split('x');
             if (epParts[0] === seasNo) {
                 this.checked = seasCheck.checked;
             }
@@ -157,18 +157,18 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
 
     // Show/hide different types of rows when the checkboxes are changed
     $(document.body).on('#checkboxControls input', 'change', event => {
-        const whichClass = $(this).attr('id');
-        $(this).showHideRows(whichClass);
+        const whichClass = $(event.currentTarget).attr('id');
+        $(event.currentTarget).showHideRows(whichClass);
     });
 
     // Initially show/hide all the rows according to the checkboxes
     $('#checkboxControls input').each(function() {
-        const status = $(this).prop('checked');
-        $('tr.' + $(this).attr('id')).each(function() {
+        const status = $(event.currentTarget).prop('checked');
+        $('tr.' + $(event.currentTarget).attr('id')).each(function() {
             if (status) {
-                $(this).show();
+                $(event.currentTarget).show();
             } else {
-                $(this).hide();
+                $(event.currentTarget).hide();
             }
         });
     });
@@ -177,24 +177,24 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
         const status = $('#checkboxControls > input, #' + whichClass).prop('checked');
         $('tr.' + whichClass).each(function() {
             if (status) {
-                $(this).show();
+                $(event.currentTarget).show();
             } else {
-                $(this).hide();
+                $(event.currentTarget).hide();
             }
         });
 
         // Hide season headers with no episodes under them
         $('tr.seasonheader').each(function() {
             let numRows = 0;
-            const seasonNo = $(this).attr('id');
+            const seasonNo = $(event.currentTarget).attr('id');
             $('tr.' + seasonNo + ' :visible').each(() => {
                 numRows++;
             });
             if (numRows === 0) {
-                $(this).hide();
+                $(event.currentTarget).hide();
                 $('#' + seasonNo + '-cols').hide();
             } else {
-                $(this).show();
+                $(event.currentTarget).show();
                 $('#' + seasonNo + '-cols').show();
             }
         });
@@ -285,10 +285,10 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
 
     $(document.body).on('.sceneSeasonXEpisode', 'change', event => {
         // Strip non-numeric characters
-        const value = $(this).val();
-        $(this).val(value.replace(/[^0-9xX]*/g, ''));
-        const forSeason = $(this).attr('data-for-season');
-        const forEpisode = $(this).attr('data-for-episode');
+        const value = $(event.currentTarget).val();
+        $(event.currentTarget).val(value.replace(/[^0-9xX]*/g, ''));
+        const forSeason = $(event.currentTarget).attr('data-for-season');
+        const forEpisode = $(event.currentTarget).attr('data-for-episode');
 
         // If empty reset the field
         if (value === '') {
@@ -296,22 +296,22 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
             return;
         }
 
-        const m = $(this).val().match(/^(\d+)x(\d+)$/i);
-        const onlyEpisode = $(this).val().match(/^(\d+)$/i);
+        const m = $(event.currentTarget).val().match(/^(\d+)x(\d+)$/i);
+        const onlyEpisode = $(event.currentTarget).val().match(/^(\d+)$/i);
         let sceneSeason = null;
         let sceneEpisode = null;
         let isValid = false;
         if (m) {
             sceneSeason = m[1];
             sceneEpisode = m[2];
-            isValid = setInputValidInvalid(true, $(this));
+            isValid = setInputValidInvalid(true, $(event.currentTarget));
         } else if (onlyEpisode) {
             // For example when '5' is filled in instead of '1x5', asume it's the first season
             sceneSeason = forSeason;
             sceneEpisode = onlyEpisode[1];
-            isValid = setInputValidInvalid(true, $(this));
+            isValid = setInputValidInvalid(true, $(event.currentTarget));
         } else {
-            isValid = setInputValidInvalid(false, $(this));
+            isValid = setInputValidInvalid(false, $(event.currentTarget));
         }
 
         if (isValid) {
@@ -321,10 +321,10 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
 
     $(document.body).on('.sceneAbsolute', 'change', event => {
         // Strip non-numeric characters
-        $(this).val($(this).val().replace(/[^0-9xX]*/g, ''));
-        const forAbsolute = $(this).attr('data-for-absolute');
+        $(event.currentTarget).val($(event.currentTarget).val().replace(/[^0-9xX]*/g, ''));
+        const forAbsolute = $(event.currentTarget).attr('data-for-absolute');
 
-        const m = $(this).val().match(/^(\d{1,3})$/i);
+        const m = $(event.currentTarget).val().match(/^(\d{1,3})$/i);
         let sceneAbsolute = null;
         if (m) {
             sceneAbsolute = m[1];
@@ -425,7 +425,7 @@ MEDUSA.home.displayShow = function() { // eslint-disable-line max-lines
         api.patch('config/main', {
             layout: {
                 show: {
-                    specials: $(this).text() !== 'Hide'
+                    specials: $(event.currentTarget).text() !== 'Hide'
                 }
             }
         }).then(response => {

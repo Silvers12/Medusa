@@ -1,13 +1,13 @@
 MEDUSA.config.subtitlesPage = function() {
     $.fn.showHideServices = function() {
         $('.serviceDiv').each(function() {
-            const serviceName = $(this).attr('id');
+            const serviceName = $(event.currentTarget).attr('id');
             const selectedService = $('#editAService :selected').val();
 
             if (selectedService + 'Div' === serviceName) {
-                $(this).show();
+                $(event.currentTarget).show();
             } else {
-                $(this).hide();
+                $(event.currentTarget).hide();
             }
         });
     };
@@ -48,7 +48,7 @@ MEDUSA.config.subtitlesPage = function() {
     });
 
     // Initialization stuff
-    $(this).showHideServices();
+    $(event.currentTarget).showHideServices();
 
     $('#service_order_list').sortable({
         placeholder: 'ui-state-highlight',

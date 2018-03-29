@@ -51,7 +51,7 @@ $(document).ready(() => {
         // Re-sync option ids
         let i = 0;
         $('#rootDirs option').each(function() {
-            $(this).prop('id', 'rd-' + (i++));
+            $(event.currentTarget).prop('id', 'rd-' + (i++));
         });
     }
 
@@ -89,7 +89,7 @@ $(document).ready(() => {
         }
         $('#rootDirs option').each(function() {
             if (dirString.length !== 0) {
-                dirString += '|' + $(this).val();
+                dirString += '|' + $(event.currentTarget).val();
             }
         });
 
@@ -146,10 +146,10 @@ $(document).ready(() => {
     }
 
     $(document.body).on('#addRootDir', 'click', event => {
-        $(this).nFileBrowser(addRootDir);
+        $(event.currentTarget).nFileBrowser(addRootDir);
     });
     $(document.body).on('#editRootDir', 'click', event => {
-        $(this).nFileBrowser(editRootDir, {
+        $(event.currentTarget).nFileBrowser(editRootDir, {
             initialDir: $('#rootDirs option:selected').val()
         });
     });

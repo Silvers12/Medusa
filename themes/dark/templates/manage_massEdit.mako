@@ -35,15 +35,15 @@ const startVue = () => {
             }
 
             $(document.body).on('.new_root_dir', 'change', event => {
-                const curIndex = findDirIndex($(this).attr('id'));
-                $('#display_new_root_dir_' + curIndex).html('<b>' + $(this).val() + '</b>');
+                const curIndex = findDirIndex($(event.currentTarget).attr('id'));
+                $('#display_new_root_dir_' + curIndex).html('<b>' + $(event.currentTarget).val() + '</b>');
             });
 
             $('.edit_root_dir').on('click', function(event) {
                 event.preventDefault();
-                const curIndex = findDirIndex($(this).attr('id'));
+                const curIndex = findDirIndex($(event.currentTarget).attr('id'));
                 const initialDir = $('#new_root_dir_' + curIndex).val();
-                $(this).nFileBrowser(editRootDir, {
+                $(event.currentTarget).nFileBrowser(editRootDir, {
                     initialDir,
                     whichId: curIndex,
                     title: 'Select Show Location'
@@ -51,7 +51,7 @@ const startVue = () => {
             });
 
             $(document.body).on('.delete_root_dir', 'click', event => {
-                const curIndex = findDirIndex($(this).attr('id'));
+                const curIndex = findDirIndex($(event.currentTarget).attr('id'));
                 $('#new_root_dir_' + curIndex).val(null);
                 $('#display_new_root_dir_' + curIndex).html('<b>DELETED</b>');
             });

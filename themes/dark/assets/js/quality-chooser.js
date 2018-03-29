@@ -8,20 +8,20 @@ $(document).ready(() => {
         $('#customQuality').hide();
 
         $('#allowed_qualities option').each(function() {
-            const result = preset & $(this).val();
+            const result = preset & $(event.currentTarget).val();
             if (result > 0) {
-                $(this).prop('selected', true);
+                $(event.currentTarget).prop('selected', true);
             } else {
-                $(this).prop('selected', false);
+                $(event.currentTarget).prop('selected', false);
             }
         });
 
         $('#preferred_qualities option').each(function() {
-            const result = preset & ($(this).val() << 16);
+            const result = preset & ($(event.currentTarget).val() << 16);
             if (result > 0) {
-                $(this).prop('selected', true);
+                $(event.currentTarget).prop('selected', true);
             } else {
-                $(this).prop('selected', false);
+                $(event.currentTarget).prop('selected', false);
             }
         });
     }
@@ -119,8 +119,8 @@ $(document).ready(() => {
     }
 
     $(document.body).on('#archiveEpisodes', 'click', event => {
-        $.get($(this).attr('href'));
-        $(this).val('Archiving...');
+        $.get($(event.currentTarget).attr('href'));
+        $(event.currentTarget).val('Archiving...');
         archiveEpisodes();
         return false;
     });

@@ -182,9 +182,9 @@ MEDUSA.config.search = function() {
         }
     });
 
-    $('#nzb_method').on('change', $(this).nzbMethodHandler);
+    $('#nzb_method').on('change', $(event.currentTarget).nzbMethodHandler);
 
-    $(this).nzbMethodHandler();
+    $(event.currentTarget).nzbMethodHandler();
 
     $(document.body).on('#testSABnzbd', 'click', event => {
         const sab = {};

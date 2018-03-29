@@ -34,18 +34,18 @@ const UTIL = {
 
         const body = document.body;
         $('[asset]').each(function() {
-            const asset = $(this).attr('asset');
-            const series = $(this).attr('series');
+            const asset = $(event.currentTarget).attr('asset');
+            const series = $(event.currentTarget).attr('series');
             const path = apiRoot + 'series/' + series + '/asset/' + asset + '?api_key=' + apiKey;
             if (this.tagName.toLowerCase() === 'img') {
-                if ($(this).attr('lazy') === 'on') {
-                    $(this).attr('data-original', path);
+                if ($(event.currentTarget).attr('lazy') === 'on') {
+                    $(event.currentTarget).attr('data-original', path);
                 } else {
-                    $(this).attr('src', path);
+                    $(event.currentTarget).attr('src', path);
                 }
             }
             if (this.tagName.toLowerCase() === 'a') {
-                $(this).attr('href', path);
+                $(event.currentTarget).attr('href', path);
             }
         });
         const controller = body.getAttribute('data-controller');
@@ -76,9 +76,9 @@ $.extend({
 $.fn.extend({
     addRemoveWarningClass(_) {
         if (_) {
-            return $(this).removeClass('warning');
+            return $(event.currentTarget).removeClass('warning');
         }
-        return $(this).addClass('warning');
+        return $(event.currentTarget).addClass('warning');
     }
 });
 

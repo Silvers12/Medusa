@@ -18,7 +18,7 @@ $(document.body).on('#submit', 'click', event => {
     const allExceptions = [];
 
     $('#exceptions_list option').each(function() {
-        allExceptions.push($(this).val());
+        allExceptions.push($(event.currentTarget).val());
     });
 
     $('#exceptions_list').val(allExceptions);
@@ -33,7 +33,7 @@ $(document.body).on('#addSceneName', 'click', event => {
     allExceptions = [];
 
     $('#exceptions_list option').each(function() {
-        allExceptions.push($(this).val());
+        allExceptions.push($(event.currentTarget).val());
     });
 
     $('#SceneName').val('');
@@ -52,14 +52,14 @@ $(document.body).on('#addSceneName', 'click', event => {
 $(document.body).on('#removeSceneName', 'click', event => {
     $('#exceptions_list option:selected').remove();
 
-    $(this).toggleSceneException();
+    $(event.currentTarget).toggleSceneException();
 });
 
 $.fn.toggleSceneException = function() {
     allExceptions = [];
 
     $('#exceptions_list option').each(function() {
-        allExceptions.push($(this).val());
+        allExceptions.push($(event.currentTarget).val());
     });
 
     if (allExceptions === '') {
@@ -69,4 +69,4 @@ $.fn.toggleSceneException = function() {
     }
 };
 
-$(this).toggleSceneException();
+$(event.currentTarget).toggleSceneException();

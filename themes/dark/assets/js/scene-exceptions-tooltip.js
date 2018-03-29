@@ -1,8 +1,8 @@
 $(() => {
     $('.title a').each(function() {
-        const indexerName = $(this).parent().attr('data-indexer-name');
-        const seriesId = $(this).parent().attr('data-series-id');
-        $(this).qtip({
+        const indexerName = $(event.currentTarget).parent().attr('data-indexer-name');
+        const seriesId = $(event.currentTarget).parent().attr('data-series-id');
+        $(event.currentTarget).qtip({
             content: {
                 text: 'Loading...',
                 ajax: {

@@ -5,7 +5,7 @@ MEDUSA.manage.failedDownloads = function() {
         headers: { 3: { sorter: false } }
     });
     $(document.body).on('#limit', 'change', event => {
-        window.location.href = $('base').attr('href') + 'manage/failedDownloads/?limit=' + $(this).val();
+        window.location.href = $('base').attr('href') + 'manage/failedDownloads/?limit=' + $(event.currentTarget).val();
     });
 
     $(document.body).on('#submitMassRemove', 'click', event => {
@@ -13,7 +13,7 @@ MEDUSA.manage.failedDownloads = function() {
 
         $('.removeCheck').each(function() {
             if (this.checked === true) {
-                removeArr.push($(this).attr('id').split('-')[1]);
+                removeArr.push($(event.currentTarget).attr('id').split('-')[1]);
             }
         });
 

@@ -16,7 +16,7 @@ $(document).ready(() => {
         const seasNo = $(seasCheck).attr('id');
 
         $('.epCheck:visible').each(function() {
-            const epParts = $(this).attr('id').split('x');
+            const epParts = $(event.currentTarget).attr('id').split('x');
 
             if (epParts[0] === seasNo) {
                 this.checked = seasCheck.checked;
@@ -29,7 +29,7 @@ $(document).ready(() => {
 
         $('.epCheck').each(function() {
             if (this.checked === true) {
-                epArr.push($(this).attr('id'));
+                epArr.push($(event.currentTarget).attr('id'));
             }
         });
 

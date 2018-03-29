@@ -129,12 +129,12 @@ formtowizard.prototype={
             }
             var maxfieldsetwidth=$sections.eq(0).outerWidth(); //variable to get width of widest fieldset.sectionwrap
             $sections.slice(1).each(function(i){ //loop through $sections (starting from 2nd one)
-                maxfieldsetwidth=Math.max($(this).outerWidth(), maxfieldsetwidth);
+                maxfieldsetwidth=Math.max($(event.currentTarget).outerWidth(), maxfieldsetwidth);
             });
             maxfieldsetwidth+=2; //add 2px to final width to reveal fieldset border (if not removed via CSS)
             thiswizard.maxfieldsetwidth=maxfieldsetwidth;
             $sections.each(function(i){ //loop through $sections again
-                var $section=$(this);
+                var $section=$(event.currentTarget);
                 if (setting.revealfx[0]=="slide"){
                     $section.data('page', i).css({position:'absolute', top:0, left:maxfieldsetwidth*i}).appendTo($sectionswrapper_inner); //set fieldset position to "absolute" and move it to inside sectionswrapper_inner DIV
                 }
@@ -142,7 +142,7 @@ formtowizard.prototype={
                 //create each "step" DIV and add it to main Steps Container:
                 var $thestep=$('<div class="step disabledstep" />').data('section', i).html('Step '+(i+1)+'<div class="smalltext">'+$section.find('legend:eq(0)').text()+'<p></p></div>').appendTo($stepsguide);
                 $thestep.click(function(){ //assign behavior to each step div
-                    thiswizard.loadsection($(this).data('section'));
+                    thiswizard.loadsection($(event.currentTarget).data('section'));
                 });
             });
             if (setting.revealfx[0]=="slide"){

@@ -13,12 +13,12 @@ MEDUSA.addShows.addExistingShow = function() {
         const dirArr = [];
         $('.dirCheck').each(function() {
             if (this.checked === true) {
-                const originalIndexer = $(this).attr('data-indexer');
-                let indexerId = '|' + $(this).attr('data-indexer-id');
-                const showName = $(this).attr('data-show-name');
-                const showDir = $(this).attr('data-show-dir');
+                const originalIndexer = $(event.currentTarget).attr('data-indexer');
+                let indexerId = '|' + $(event.currentTarget).attr('data-indexer-id');
+                const showName = $(event.currentTarget).attr('data-show-name');
+                const showDir = $(event.currentTarget).attr('data-show-dir');
 
-                const indexer = $(this).closest('tr').find('select').val();
+                const indexer = $(event.currentTarget).closest('tr').find('select').val();
                 if (originalIndexer !== indexer || originalIndexer === '0') {
                     indexerId = '';
                 }

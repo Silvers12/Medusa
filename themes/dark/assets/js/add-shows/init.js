@@ -72,10 +72,10 @@ MEDUSA.addShows.init = function() {
     };
 
     $.fn.loadRemoteShows = function(path, loadingTxt, errorTxt) {
-        $(this).html('<img id="searchingAnim" src="images/loading32' + MEDUSA.config.themeSpinner + '.gif" height="32" width="32" />&nbsp;' + loadingTxt);
-        $(this).load(path + ' #container', function(response, status) {
+        $(event.currentTarget).html('<img id="searchingAnim" src="images/loading32' + MEDUSA.config.themeSpinner + '.gif" height="32" width="32" />&nbsp;' + loadingTxt);
+        $(event.currentTarget).load(path + ' #container', function(response, status) {
             if (status === 'error') {
-                $(this).empty().html(errorTxt);
+                $(event.currentTarget).empty().html(errorTxt);
             } else {
                 $.initRemoteShowGrid();
                 imgLazyLoad.update();
@@ -91,14 +91,14 @@ MEDUSA.addShows.init = function() {
         $(document.body).on('click', 'button[data-blacklist-show]', function(e) {
             e.preventDefault();
 
-            if ($(this).is(':disabled')) {
+            if ($(event.currentTarget).is(':disabled')) {
                 return false;
             }
 
-            $(this).html('Blacklisted').prop('disabled', true);
-            $(this).parent().find('button[data-add-show]').prop('disabled', true);
+            $(event.currentTarget).html('Blacklisted').prop('disabled', true);
+            $(event.currentTarget).parent().find('button[data-add-show]').prop('disabled', true);
 
-            $.get('addShows/addShowToBlacklist?seriesid=' + $(this).attr('data-indexer-id'));
+            $.get('addShows/addShowToBlacklist?seriesid=' + $(event.currentTarget).attr('data-indexer-id'));
             return false;
         });
     };
@@ -111,12 +111,12 @@ MEDUSA.addShows.init = function() {
         $(document.body).on('click', 'button[data-add-show]', function(e) {
             e.preventDefault();
 
-            if ($(this).is(':disabled')) {
+            if ($(event.currentTarget).is(':disabled')) {
                 return false;
             }
 
-            $(this).html('Added').prop('disabled', true);
-            $(this).parent().find('button[data-blacklist-show]').prop('disabled', true);
+            $(event.currentTarget).html('Added').prop('disabled', true);
+            $(event.currentTarget).parent().find('button[data-blacklist-show]').prop('disabled', true);
 
             const anyQualArray = [];
             const bestQualArray = [];
@@ -131,10 +131,10 @@ MEDUSA.addShows.init = function() {
             const anime = $('#anime').prop('checked');
             const configureShowOptions = $('#configure_show_options').prop('checked');
 
-            $.get('addShows/addShowByID?indexername=' + $(this).attr('data-indexer') + '&seriesid=' + $(this).attr('data-indexer-id'), {
+            $.get('addShows/addShowByID?indexername=' + $(event.currentTarget).attr('data-indexer') + '&seriesid=' + $(event.currentTarget).attr('data-indexer-id'), {
                 root_dir: $('#rootDirs option:selected').val(), // eslint-disable-line camelcase
                 configure_show_options: configureShowOptions, // eslint-disable-line camelcase
-                show_name: $(this).attr('data-show-name'), // eslint-disable-line camelcase
+                show_name: $(event.currentTarget).attr('data-show-name'), // eslint-disable-line camelcase
                 quality_preset: $('#qualityPreset').val(), // eslint-disable-line camelcase
                 default_status: $('#statusSelect').val(), // eslint-disable-line camelcase
                 any_qualities: anyQualArray.join(','), // eslint-disable-line camelcase
@@ -169,7 +169,7 @@ MEDUSA.addShows.init = function() {
                 defaultStatusAfter: $('#statusSelectAfter').val()
             });
 
-            $(this).prop('disabled', true);
+            $(event.currentTarget).prop('disabled', true);
             new PNotify({ // eslint-disable-line no-new
                 title: 'Saved Defaults',
                 text: 'Your "add show" defaults have been set to your current selections.',

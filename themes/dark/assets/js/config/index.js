@@ -7,7 +7,7 @@ MEDUSA.config.index = function() {
     $(document.body).on('#theme_name', 'change', event => {
         api.patch('config/main', {
             theme: {
-                name: $(this).val()
+                name: $(event.currentTarget).val()
             }
         }).then(response => {
             log.info(response);
@@ -18,7 +18,7 @@ MEDUSA.config.index = function() {
     });
 
     $(document.body).on('input[name="proxy_setting"]', 'input', event => {
-        if ($(this).val().length === 0) {
+        if ($(event.currentTarget).val().length === 0) {
             $('input[id="proxy_indexers"]').prop('checked', false);
             $('label[for="proxy_indexers"]').hide();
         } else {

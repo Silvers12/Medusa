@@ -1,24 +1,24 @@
 MEDUSA.manage.subtitleMissed = function() {
     $(document.body).on('.allCheck', 'click', event => {
-        const seriesId = $(this).attr('data-indexer-id') + '-' + $(this).attr('data-series-id');
-        $('.' + seriesId + '-epcheck').prop('checked', $(this).prop('checked'));
+        const seriesId = $(event.currentTarget).attr('data-indexer-id') + '-' + $(event.currentTarget).attr('data-series-id');
+        $('.' + seriesId + '-epcheck').prop('checked', $(event.currentTarget).prop('checked'));
     });
 
     $(document.body).on('.get_more_eps', 'click', event => {
-        const indexerId = $(this).attr('data-indexer-id');
-        const seriesId = $(this).attr('data-series-id');
+        const indexerId = $(event.currentTarget).attr('data-indexer-id');
+        const seriesId = $(event.currentTarget).attr('data-series-id');
         const checked = $('#allCheck-' + indexerId + '-' + seriesId).prop('checked');
         const lastRow = $('tr#' + indexerId + '-' + seriesId);
-        const clicked = $(this).data('clicked');
-        const action = $(this).attr('value');
+        const clicked = $(event.currentTarget).data('clicked');
+        const action = $(event.currentTarget).attr('value');
 
         if (clicked) {
             if (action === 'Collapse') {
                 $('table tr').filter('.show-' + indexerId + '-' + seriesId).hide();
-                $(this).prop('value', 'Expand');
+                $(event.currentTarget).prop('value', 'Expand');
             } else if (action === 'Expand') {
                 $('table tr').filter('.show-' + indexerId + '-' + seriesId).show();
-                $(this).prop('value', 'Collapse');
+                $(event.currentTarget).prop('value', 'Collapse');
             }
         } else {
             $.getJSON('manage/showSubtitleMissed', {
@@ -32,8 +32,8 @@ MEDUSA.manage.subtitleMissed = function() {
                     });
                 });
             });
-            $(this).data('clicked', 1);
-            $(this).prop('value', 'Collapse');
+            $(event.currentTarget).data('clicked', 1);
+            $(event.currentTarget).prop('value', 'Collapse');
         }
     });
 

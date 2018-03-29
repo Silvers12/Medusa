@@ -21,7 +21,7 @@ $(document).ready(() => {
             defaultStatusAfter: $('#statusSelectAfter').val()
         });
 
-        $(this).prop('disabled', true);
+        $(event.currentTarget).prop('disabled', true);
         new PNotify({ // eslint-disable-line no-new
             title: 'Saved Defaults',
             text: 'Your "add show" defaults have been set to your current selections.',

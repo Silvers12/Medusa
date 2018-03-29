@@ -1,12 +1,12 @@
 $(document).ready(() => {
     // Perform an API call
     $(document.body).on('[data-action=api-call]', 'click', event => {
-        const parameters = $('[data-command=' + $(this).data('command-name') + ']');
+        const parameters = $('[data-command=' + $(event.currentTarget).data('command-name') + ']');
         const profile = $('#option-profile').is(':checked');
-        const targetId = $(this).data('target');
-        const timeId = $(this).data('time');
-        let url = $('#' + $(this).data('base-url')).text();
-        const urlId = $(this).data('url');
+        const targetId = $(event.currentTarget).data('target');
+        const timeId = $(event.currentTarget).data('time');
+        let url = $('#' + $(event.currentTarget).data('base-url')).text();
+        const urlId = $(event.currentTarget).data('url');
 
         $.each(parameters, (index, item) => {
             const name = $(item).attr('name');
@@ -53,14 +53,14 @@ $(document).ready(() => {
 
     // Remove the result of an API call
     $(document.body).on('[data-action=clear-result]', 'click', event => {
-        $($(this).data('target')).html('').parents('.result-wrapper').addClass('hidden');
+        $($(event.currentTarget).data('target')).html('').parents('.result-wrapper').addClass('hidden');
     });
 
     // Update the list of episodes
     $(document.body).on('[data-action=update-episodes', 'change', event => {
-        const command = $(this).data('command');
+        const command = $(event.currentTarget).data('command');
         const select = $('[data-command=' + command + '][name=episode]');
-        const season = $(this).val();
+        const season = $(event.currentTarget).val();
         const show = $('[data-command=' + command + '][name=indexerid]').val();
 
         if (select !== undefined) {
@@ -80,9 +80,9 @@ $(document).ready(() => {
 
     // Update the list of seasons
     $(document.body).on('[data-action=update-seasons', 'change', event => {
-        const command = $(this).data('command');
+        const command = $(event.currentTarget).data('command');
         const select = $('[data-command=' + command + '][name=season]');
-        const show = $(this).val();
+        const show = $(event.currentTarget).val();
 
         if (select !== undefined) {
             select.removeClass('hidden');
@@ -104,7 +104,7 @@ $(document).ready(() => {
         source: commands // eslint-disable-line no-undef
     });
     $(document.body).on('#command-search', 'change', event => {
-        const command = $(this).typeahead('getActive');
+        const command = $(event.currentTarget).typeahead('getActive');
 
         if (command) {
             const commandId = command.replace('.', '-');

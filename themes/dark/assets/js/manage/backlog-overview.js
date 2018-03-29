@@ -54,7 +54,7 @@ MEDUSA.manage.backlogOverview = function() {
     }
 
     $(document.body).on('#pickShow', 'change', event => {
-        const id = $(this).val();
+        const id = $(event.currentTarget).val();
         if (id) {
             $('html,body').animate({ scrollTop: $('#show-' + id).offset().top - 25 }, 'slow');
         }
@@ -63,7 +63,7 @@ MEDUSA.manage.backlogOverview = function() {
     $(document.body).on('#backlog_period', 'change', event => {
         api.patch('config/main', {
             backlogOverview: {
-                period: $(this).val()
+                period: $(event.currentTarget).val()
             }
         }).then(response => {
             log.info(response);
@@ -76,7 +76,7 @@ MEDUSA.manage.backlogOverview = function() {
     $(document.body).on('#backlog_status', 'change', event => {
         api.patch('config/main', {
             backlogOverview: {
-                status: $(this).val()
+                status: $(event.currentTarget).val()
             }
         }).then(response => {
             log.info(response);
@@ -87,18 +87,18 @@ MEDUSA.manage.backlogOverview = function() {
     });
 
     $(document.body).on('.forceBacklog', 'click', event => {
-        $.get($(this).attr('href'));
-        $(this).text('Searching...');
+        $.get($(event.currentTarget).attr('href'));
+        $(event.currentTarget).text('Searching...');
         return false;
     });
 
     $('.epArchive').on('click', function(event) {
         event.preventDefault();
-        const img = $(this).children('img[data-ep-archive]');
+        const img = $(event.currentTarget).children('img[data-ep-archive]');
         img.prop('title', 'Archiving');
         img.prop('alt', 'Archiving');
         img.prop('src', 'images/loading16.gif');
-        const url = $(this).prop('href');
+        const url = $(event.currentTarget).prop('href');
         $.getJSON(url, data => {
             // If they failed then just put the red X
             if (data.result.toLowerCase() === 'success') {
@@ -115,11 +115,11 @@ MEDUSA.manage.backlogOverview = function() {
 
     $('.epSearch').on('click', function(event) {
         event.preventDefault();
-        const img = $(this).children('img[data-ep-search]');
+        const img = $(event.currentTarget).children('img[data-ep-search]');
         img.prop('title', 'Searching');
         img.prop('alt', 'Searching');
         img.prop('src', 'images/loading16.gif');
-        const url = $(this).prop('href');
+        const url = $(event.currentTarget).prop('href');
         $.getJSON(url, data => {
             // If they failed then just put the red X
             if (data.result.toLowerCase() === 'failed') {

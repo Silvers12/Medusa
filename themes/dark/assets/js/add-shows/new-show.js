@@ -174,7 +174,7 @@ MEDUSA.addShows.newShow = function() {
     function goToStep(num) {
         $('.step').each(function() {
             if ($.data(this, 'section') + 1 === num) {
-                $(this).click();
+                $(event.currentTarget).click();
             }
         });
     }

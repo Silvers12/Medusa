@@ -4,7 +4,7 @@ $(document).ready(() => {
 
         $('.editCheck').each(function() {
             if (this.checked === true) {
-                editArr.push(`${$(this).attr('data-indexer-name')}${$(this).attr('data-series-id')}`);
+                editArr.push(`${$(event.currentTarget).attr('data-indexer-name')}${$(event.currentTarget).attr('data-series-id')}`);
             }
         });
 
@@ -32,42 +32,42 @@ $(document).ready(() => {
         const metadataArr = [];
         const imageUpdateArr = [];
 
-        const indexerName = $(this).attr('data-indexer-name');
-        const seriesId = $(this).attr('data-series-id');
+        const indexerName = $(event.currentTarget).attr('data-indexer-name');
+        const seriesId = $(event.currentTarget).attr('data-series-id');
 
         $('.updateCheck').each(function() {
             if (this.checked === true) {
-                updateArr.push(`${$(this).attr('data-indexer-name')}${$(this).attr('data-series-id')}`);
+                updateArr.push(`${$(event.currentTarget).attr('data-indexer-name')}${$(event.currentTarget).attr('data-series-id')}`);
             }
         });
 
         $('.refreshCheck').each(function() {
             if (this.checked === true) {
-                refreshArr.push(`${$(this).attr('data-indexer-name')}${$(this).attr('data-series-id')}`);
+                refreshArr.push(`${$(event.currentTarget).attr('data-indexer-name')}${$(event.currentTarget).attr('data-series-id')}`);
             }
         });
 
         $('.renameCheck').each(function() {
             if (this.checked === true) {
-                renameArr.push(`${$(this).attr('data-indexer-name')}${$(this).attr('data-series-id')}`);
+                renameArr.push(`${$(event.currentTarget).attr('data-indexer-name')}${$(event.currentTarget).attr('data-series-id')}`);
             }
         });
 
         $('.subtitleCheck').each(function() {
             if (this.checked === true) {
-                subtitleArr.push(`${$(this).attr('data-indexer-name')}${$(this).attr('data-series-id')}`);
+                subtitleArr.push(`${$(event.currentTarget).attr('data-indexer-name')}${$(event.currentTarget).attr('data-series-id')}`);
             }
         });
 
         $('.removeCheck').each(function() {
             if (this.checked === true) {
-                removeArr.push(`${$(this).attr('data-indexer-name')}${$(this).attr('data-series-id')}`);
+                removeArr.push(`${$(event.currentTarget).attr('data-indexer-name')}${$(event.currentTarget).attr('data-series-id')}`);
             }
         });
 
         $('.imageCheck').each(function() {
             if (this.checked === true) {
-                imageUpdateArr.push(`${$(this).attr('data-indexer-name')}${$(this).attr('data-series-id')}`);
+                imageUpdateArr.push(`${$(event.currentTarget).attr('data-indexer-name')}${$(event.currentTarget).attr('data-series-id')}`);
             }
         });
 

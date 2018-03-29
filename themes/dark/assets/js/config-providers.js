@@ -2,13 +2,13 @@ $(document).ready(function() { // eslint-disable-line max-lines
     console.log('This function need to be moved to config/providers.js but can\'t be as we\'ve got scope issues currently.');
     $.fn.showHideProviders = function() {
         $('.providerDiv').each(function() {
-            const providerName = $(this).prop('id');
+            const providerName = $(event.currentTarget).prop('id');
             const selectedProvider = $('#editAProvider :selected').val();
 
             if (selectedProvider + 'Div' === providerName) {
-                $(this).show();
+                $(event.currentTarget).show();
             } else {
-                $(this).hide();
+                $(event.currentTarget).hide();
             }
         });
     };
@@ -44,7 +44,7 @@ $(document).ready(function() { // eslint-disable-line max-lines
 
         $('.updating_categories').wrapInner('<span><img src="images/loading16' + MEDUSA.config.themeSpinner + '.gif"> Updating Categories ...</span>'); // eslint-disable-line no-undef
         const jqxhr = $.getJSON('config/providers/getNewznabCategories', params, function(data) {
-            $(this).updateNewznabCaps(data, selectedProvider);
+            $(event.currentTarget).updateNewznabCaps(data, selectedProvider);
             console.debug(data.tv_categories);
         });
         jqxhr.always(() => {
@@ -82,7 +82,7 @@ $(document).ready(function() { // eslint-disable-line max-lines
             $('#provider_order_list').sortable('refresh');
         }
 
-        $(this).makeNewznabProviderString();
+        $(event.currentTarget).makeNewznabProviderString();
     };
 
     $.fn.addTorrentRssProvider = function(id, name, url, cookies, titleTag) { // eslint-disable-line max-params
@@ -90,14 +90,14 @@ $(document).ready(function() { // eslint-disable-line max-lines
         torrentRssProviders[id] = newData;
 
         $('#editATorrentRssProvider').append('<option value=' + id + '>' + name + '</option>');
-        $(this).populateTorrentRssSection();
+        $(event.currentTarget).populateTorrentRssSection();
 
         if ($('#provider_order_list > #' + id).length === 0) {
             $('#provider_order_list').append('<li class="ui-state-default" id="' + id + '"> <input type="checkbox" id="enable_' + id + '" class="provider_enabler" CHECKED> <a href="' + MEDUSA.config.anonURL + url + '" class="imgLink" target="_new"><img src="images/providers/torrentrss.png" alt="' + name + '" width="16" height="16"></a> ' + name + '</li>'); // eslint-disable-line no-undef
             $('#provider_order_list').sortable('refresh');
         }
 
-        $(this).makeTorrentRssProviderString();
+        $(event.currentTarget).makeTorrentRssProviderString();
     };
 
     $.fn.updateProvider = function(id, url, key, cat) {
@@ -105,33 +105,33 @@ $(document).ready(function() { // eslint-disable-line max-lines
         newznabProviders[id][1][2] = key;
         newznabProviders[id][1][3] = cat;
 
-        $(this).populateNewznabSection();
+        $(event.currentTarget).populateNewznabSection();
 
-        $(this).makeNewznabProviderString();
+        $(event.currentTarget).makeNewznabProviderString();
     };
 
     $.fn.deleteProvider = function(id) {
         $('#editANewznabProvider option[value=' + id + ']').remove();
         delete newznabProviders[id];
-        $(this).populateNewznabSection();
+        $(event.currentTarget).populateNewznabSection();
         $('li').remove('#' + id);
-        $(this).makeNewznabProviderString();
+        $(event.currentTarget).makeNewznabProviderString();
     };
 
     $.fn.updateTorrentRssProvider = function(id, url, cookies, titleTag) {
         torrentRssProviders[id][1] = url;
         torrentRssProviders[id][2] = cookies;
         torrentRssProviders[id][3] = titleTag;
-        $(this).populateTorrentRssSection();
-        $(this).makeTorrentRssProviderString();
+        $(event.currentTarget).populateTorrentRssSection();
+        $(event.currentTarget).makeTorrentRssProviderString();
     };
 
     $.fn.deleteTorrentRssProvider = function(id) {
         $('#editATorrentRssProvider option[value=' + id + ']').remove();
         delete torrentRssProviders[id];
-        $(this).populateTorrentRssSection();
+        $(event.currentTarget).populateTorrentRssSection();
         $('li').remove('#' + id);
-        $(this).makeTorrentRssProviderString();
+        $(event.currentTarget).makeTorrentRssProviderString();
     };
 
     $.fn.populateNewznabSection = function() {
@@ -151,11 +151,11 @@ $(document).ready(function() { // eslint-disable-line max-lines
             $('#newznabcapdiv').hide();
 
             $('#newznab_cat option').each(function() {
-                $(this).remove();
+                $(event.currentTarget).remove();
             });
 
             $('#newznab_cap option').each(function() {
-                $(this).remove();
+                $(event.currentTarget).remove();
             });
         } else {
             data = newznabProviders[selectedProvider][1];
@@ -209,9 +209,9 @@ $(document).ready(function() { // eslint-disable-line max-lines
 
             // Get Categories Capabilities
             if (data[0] && data[1] && data[2] && !ifExists($.fn.newznabProvidersCapabilities, data[0])) {
-                $(this).getCategories(isDefault, data);
+                $(event.currentTarget).getCategories(isDefault, data);
             }
-            $(this).updateNewznabCaps(null, data);
+            $(event.currentTarget).updateNewznabCaps(null, data);
         }
     };
 
@@ -316,7 +316,7 @@ $(document).ready(function() { // eslint-disable-line max-lines
         });
 
         $('#provider_order').val(finalArr.join(' '));
-        $(this).refreshEditAProvider();
+        $(event.currentTarget).refreshEditAProvider();
     };
 
     $.fn.refreshEditAProvider = function() {
@@ -340,18 +340,18 @@ $(document).ready(function() { // eslint-disable-line max-lines
             document.getElementsByClassName('component-desc')[0].innerHTML = 'No providers available to configure.';
         }
 
-        $(this).showHideProviders();
+        $(event.currentTarget).showHideProviders();
     };
 
-    $(this).on('change', '.newznab_api_key', function() {
-        let providerId = $(this).prop('id');
+    $(event.currentTarget).on('change', '.newznab_api_key', function() {
+        let providerId = $(event.currentTarget).prop('id');
         providerId = providerId.substring(0, providerId.length - '_hash'.length);
 
         const url = $('#' + providerId + '_url').val();
         const cat = $('#' + providerId + '_cat').val();
-        const key = $(this).val();
+        const key = $(event.currentTarget).val();
 
-        $(this).updateProvider(providerId, url, key, cat);
+        $(event.currentTarget).updateProvider(providerId, url, key, cat);
     });
 
     $(document.body).on('#newznab_api_key,#newznab_url', 'change', event => {
@@ -368,7 +368,7 @@ $(document).ready(function() { // eslint-disable-line max-lines
             return $(opt).text();
         }).toArray().join(',');
 
-        $(this).updateProvider(selectedProvider, url, key, cat);
+        $(event.currentTarget).updateProvider(selectedProvider, url, key, cat);
     });
 
     $(document.body).on('#torrentrss_url,#torrentrss_cookies,#torrentrss_title_tag', 'change', event => {
@@ -382,29 +382,29 @@ $(document).ready(function() { // eslint-disable-line max-lines
         const cookies = $('#torrentrss_cookies').val();
         const titleTag = $('#torrentrss_title_tag').val();
 
-        $(this).updateTorrentRssProvider(selectedProvider, url, cookies, titleTag);
+        $(event.currentTarget).updateTorrentRssProvider(selectedProvider, url, cookies, titleTag);
     });
 
     $('body').on('change', '#editAProvider', function() {
-        $(this).showHideProviders();
+        $(event.currentTarget).showHideProviders();
     });
 
     $(document.body).on('#editANewznabProvider', 'change', event => {
-        $(this).populateNewznabSection();
+        $(event.currentTarget).populateNewznabSection();
     });
 
     $(document.body).on('#editATorrentRssProvider', 'change', event => {
-        $(this).populateTorrentRssSection();
+        $(event.currentTarget).populateTorrentRssSection();
     });
 
-    $(this).on('click', '.provider_enabler', function() {
-        $(this).refreshProviderList();
+    $(event.currentTarget).on('click', '.provider_enabler', function() {
+        $(event.currentTarget).refreshProviderList();
     });
 
     $(document.body).on('#newznab_cat_update', 'click', event => {
         // Maybe check if there is anything selected?
         $('#newznab_cat option').each(function() {
-            $(this).remove();
+            $(event.currentTarget).remove();
         });
 
         const newOptions = [];
@@ -412,7 +412,7 @@ $(document).ready(function() { // eslint-disable-line max-lines
         // When the update botton is clicked, loop through the capabilities list
         // and copy the selected category id's to the category list on the right.
         $('#newznab_cap option:selected').each(function() {
-            const selectedCat = $(this).val();
+            const selectedCat = $(event.currentTarget).val();
             console.debug(selectedCat);
             newOptions.push({
                 text: selectedCat,
@@ -436,7 +436,7 @@ $(document).ready(function() { // eslint-disable-line max-lines
 
         $('#newznab_cat option:not([value])').remove();
 
-        $(this).updateProvider(selectedProvider, url, key, cat);
+        $(event.currentTarget).updateProvider(selectedProvider, url, key, cat);
     });
 
     $(document.body).on('#newznab_add', 'click', event => {
@@ -461,13 +461,13 @@ $(document).ready(function() { // eslint-disable-line max-lines
                 alert(data.error); // eslint-disable-line no-alert
                 return;
             }
-            $(this).addProvider(data.success, name, url, key, cat, 0);
+            $(event.currentTarget).addProvider(data.success, name, url, key, cat, 0);
         });
     });
 
     $(document.body).on('.newznab_delete', 'click', event => {
         const selectedProvider = $('#editANewznabProvider :selected').val();
-        $(this).deleteProvider(selectedProvider);
+        $(event.currentTarget).deleteProvider(selectedProvider);
     });
 
     $(document.body).on('#torrentrss_add', 'click', event => {
@@ -490,49 +490,49 @@ $(document).ready(function() { // eslint-disable-line max-lines
                 return;
             }
 
-            $(this).addTorrentRssProvider(data.success, name, url, cookies, titleTag);
-            $(this).refreshEditAProvider();
+            $(event.currentTarget).addTorrentRssProvider(data.success, name, url, cookies, titleTag);
+            $(event.currentTarget).refreshEditAProvider();
         });
     });
 
     $(document.body).on('.torrentrss_delete', 'click', event => {
-        $(this).deleteTorrentRssProvider($('#editATorrentRssProvider :selected').val());
-        $(this).refreshEditAProvider();
+        $(event.currentTarget).deleteTorrentRssProvider($('#editATorrentRssProvider :selected').val());
+        $(event.currentTarget).refreshEditAProvider();
     });
 
-    $(this).on('change', '[class="providerDiv_tip"] input', function() {
-        $('div .providerDiv [name=' + $(this).prop('name') + ']').replaceWith($(this).clone());
-        $('div .providerDiv [newznab_name=' + $(this).prop('id') + ']').replaceWith($(this).clone());
+    $(event.currentTarget).on('change', '[class="providerDiv_tip"] input', function() {
+        $('div .providerDiv [name=' + $(event.currentTarget).prop('name') + ']').replaceWith($(event.currentTarget).clone());
+        $('div .providerDiv [newznab_name=' + $(event.currentTarget).prop('id') + ']').replaceWith($(event.currentTarget).clone());
     });
 
-    $(this).on('change', '[class="providerDiv_tip"] select', function() {
-        $(this).find('option').each(function() {
-            if ($(this).is(':selected')) {
-                $(this).prop('defaultSelected', true);
+    $(event.currentTarget).on('change', '[class="providerDiv_tip"] select', function() {
+        $(event.currentTarget).find('option').each(function() {
+            if ($(event.currentTarget).is(':selected')) {
+                $(event.currentTarget).prop('defaultSelected', true);
             } else {
-                $(this).prop('defaultSelected', false);
+                $(event.currentTarget).prop('defaultSelected', false);
             }
         });
-        $('div .providerDiv [name=' + $(this).prop('name') + ']').empty().replaceWith($(this).clone());
+        $('div .providerDiv [name=' + $(event.currentTarget).prop('name') + ']').empty().replaceWith($(event.currentTarget).clone());
     });
 
-    $(this).on('change', '.enabler', function() {
-        if ($(this).is(':checked')) {
-            $('.content_' + $(this).prop('id')).each(function() {
-                $(this).show();
+    $(event.currentTarget).on('change', '.enabler', function() {
+        if ($(event.currentTarget).is(':checked')) {
+            $('.content_' + $(event.currentTarget).prop('id')).each(function() {
+                $(event.currentTarget).show();
             });
         } else {
-            $('.content_' + $(this).prop('id')).each(function() {
-                $(this).hide();
+            $('.content_' + $(event.currentTarget).prop('id')).each(function() {
+                $(event.currentTarget).hide();
             });
         }
     });
 
     $('.enabler').each(function() {
-        if ($(this).is(':checked')) {
-            $('.content_' + $(this).prop('id')).show();
+        if ($(event.currentTarget).is(':checked')) {
+            $('.content_' + $(event.currentTarget).prop('id')).show();
         } else {
-            $('.content_' + $(this).prop('id')).hide();
+            $('.content_' + $(event.currentTarget).prop('id')).hide();
         }
     });
 
@@ -545,9 +545,9 @@ $(document).ready(function() { // eslint-disable-line max-lines
         optionString.val([seedRatio, seedTime, processMet].join('|'));
     };
 
-    $(this).on('change', '.seed_option', function() {
-        const providerId = $(this).prop('id').split('_')[0];
-        $(this).makeTorrentOptionString(providerId);
+    $(event.currentTarget).on('change', '.seed_option', function() {
+        const providerId = $(event.currentTarget).prop('id').split('_')[0];
+        $(event.currentTarget).makeTorrentOptionString(providerId);
     });
 
     $.fn.replaceOptions = function(options) {
@@ -565,18 +565,18 @@ $(document).ready(function() { // eslint-disable-line max-lines
     // Initialization stuff
     $.fn.newznabProvidersCapabilities = [];
 
-    $(this).showHideProviders();
+    $(event.currentTarget).showHideProviders();
 
     $(() => {
         $('#provider_order_list').sortable({
             placeholder: 'ui-state-highlight',
             update() {
-                $(this).refreshProviderList();
+                $(event.currentTarget).refreshProviderList();
             }
         });
     });
 
     if ($('#editANewznabProvider').length !== 0) {
-        $(this).populateNewznabSection();
+        $(event.currentTarget).populateNewznabSection();
     }
 });

@@ -112,13 +112,13 @@
             click() {
                 // Store the browsed path to the associated text field
                 callback(currentBrowserPath, options);
-                $(this).dialog('close');
+                $(event.currentTarget).dialog('close');
             }
         }, {
             text: 'Cancel',
             class: 'btn',
             click() {
-                $(this).dialog('close');
+                $(event.currentTarget).dialog('close');
             }
         }]);
 
@@ -137,7 +137,7 @@
     $.fn.fileBrowser = function(options) {
         options = $.extend({}, $.Browser.defaults, options);
         // Text field used for the result
-        options.field = $(this);
+        options.field = $(event.currentTarget);
 
         if (options.field.autocomplete && options.autocompleteURL) {
             let query = '';
@@ -212,7 +212,7 @@
                 $('<input type="button" value="Browse&hellip;" class="btn btn-inline fileBrowser">').on('click', function() {
                     const initialDir = options.field.val() || (options.key && path) || '';
                     const optionsWithInitialDir = $.extend({}, options, { initialDir });
-                    $(this).nFileBrowser(callback, optionsWithInitialDir);
+                    $(event.currentTarget).nFileBrowser(callback, optionsWithInitialDir);
                     return false;
                 })
             );

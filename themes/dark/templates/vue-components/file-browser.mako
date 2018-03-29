@@ -156,7 +156,7 @@ Vue.component('file-browser', {
                 click() {
                     // Store the browsed path to the associated text field
                     callback(vm.currentPath);
-                    $(this).dialog('close');
+                    $(event.currentTarget).dialog('close');
                 }
             }, {
                 text: 'Cancel',
@@ -164,7 +164,7 @@ Vue.component('file-browser', {
                 click() {
                     // Reset currentPath to path before dialog opened
                     vm.currentPath = vm.lastPath;
-                    $(this).dialog('close');
+                    $(event.currentTarget).dialog('close');
                 }
             }]);
 
@@ -181,7 +181,7 @@ Vue.component('file-browser', {
         $.fn.fileBrowser = function(options) {
             options = Object.assign({}, vm.defaults, options);
             // Text field used for the result
-            const resultField = $(this);
+            const resultField = $(event.currentTarget);
 
             if (resultField.autocomplete && options.autocompleteURL) {
                 let query = '';
@@ -252,7 +252,7 @@ Vue.component('file-browser', {
                     $(document.body).on('.fileBrowserButton', 'click', event => {
                         const initialDir = vm.currentPath || (options.key && path) || '';
                         const optionsWithInitialDir = $.extend({}, options, { initialDir });
-                        $(this).nFileBrowser(callback, optionsWithInitialDir);
+                        $(event.currentTarget).nFileBrowser(callback, optionsWithInitialDir);
                         return false;
                     })
                 );
